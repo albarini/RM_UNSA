@@ -1,0 +1,585 @@
+¡Aquí tienes el código completo y actualizado, ya sin los iconos de las áreas!
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Razonamiento Matemático — Simulacro UNSA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --obsidian:#07070A;--obsidian2:#0D0D12;--obsidian3:#13131B;--obsidian4:#1A1A26;--obsidian5:#212133;
+  --emerald:#0A5C40;--emerald2:#0D7A55;--emerald3:#10A070;--emerald4:#14C088;--emerald-glow:rgba(10,92,64,.22);--emerald-soft:rgba(16,160,112,.07);
+  --champagne:#EAD8AC;--gold:#C4A044;--gold2:#DDB85C;--gold3:#F0D07A;--gold4:#F8E8AA;--gold-dark:#7A5818;--gold-glow:rgba(196,160,68,.18);
+  --mauve:#5C3A7A;--mauve2:#7A56A0;--mauve3:#9A78C8;--mauve4:#B89EDE;--mauve-glow:rgba(92,58,122,.25);
+  --sapphire:#1A3A6A;--sapphire2:#2A5A9A;--sapphire3:#4A88D0;--sapphire-glow:rgba(26,58,106,.2);
+  --ruby:#7A1428;--ruby2:#A81E3C;--ruby-glow:rgba(122,20,40,.2);
+  --cream:#F6EFDC;--text2:#CBBF9E;--muted:#7C7260;--muted2:#5C5448;
+  --border:#20202E;--border2:#2E2E40;--border3:#3C3C52;
+  --lux-line:linear-gradient(90deg,transparent 0%,rgba(196,160,68,.4) 30%,rgba(196,160,68,.8) 50%,rgba(196,160,68,.4) 70%,transparent 100%);
+  --lux-line-v:linear-gradient(180deg,transparent 0%,rgba(196,160,68,.5) 40%,rgba(196,160,68,.5) 60%,transparent 100%);
+}
+@keyframes luxShimmer{0%{background-position:200% center;}100%{background-position:-200% center;}}
+@keyframes goldPulse{0%,100%{box-shadow:0 0 0 0 rgba(196,160,68,0);}50%{box-shadow:0 0 18px 2px rgba(196,160,68,.12);}}
+html,body{width:100%;background:var(--obsidian);color:var(--cream);font-family:'Cormorant Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.screen{display:none;width:100%;}
+.screen.active{display:block;}
+
+/* REGISTER */
+#screen-register{padding-bottom:14vw;background:radial-gradient(ellipse 70% 40% at 50% -8%,rgba(196,160,68,.10) 0%,transparent 55%),radial-gradient(ellipse 50% 35% at 92% 65%,rgba(10,92,64,.09) 0%,transparent 50%),radial-gradient(ellipse 40% 30% at 5% 80%,rgba(92,58,122,.07) 0%,transparent 50%),var(--obsidian);}
+.reg-topbar{display:flex;align-items:center;justify-content:space-between;padding:5vw 6vw 4vw;border-bottom:1px solid var(--border);background:rgba(7,7,10,.92);position:relative;}
+.reg-topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--lux-line);}
+.reg-brand{font-family:'Playfair Display',serif;font-size:3.2vw;letter-spacing:.32em;text-transform:uppercase;color:var(--gold2);font-weight:400;text-shadow:0 0 20px rgba(196,160,68,.15);}
+.reg-badge{font-family:'DM Mono',monospace;font-size:2.4vw;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;padding:.8vw 2.5vw;border:1px solid var(--border2);border-radius:999px;background:rgba(28,28,40,.6);}
+.reg-hero{padding:8vw 6vw 7vw;border-bottom:1px solid var(--border);position:relative;}
+.reg-hero::before{content:'';position:absolute;top:0;left:6vw;right:6vw;height:1px;background:var(--lux-line);}
+.reg-eyebrow{font-family:'DM Mono',monospace;font-size:2.6vw;color:var(--emerald4);letter-spacing:.35em;text-transform:uppercase;margin-bottom:3vw;display:flex;align-items:center;gap:2vw;}
+.reg-eyebrow::before{content:'';display:block;width:6vw;height:1px;background:linear-gradient(90deg,var(--emerald2),var(--emerald4));}
+.reg-h1{font-family:'Playfair Display',serif;font-weight:400;font-size:15vw;line-height:.95;letter-spacing:-.02em;color:var(--cream);margin-bottom:1.5vw;}
+.reg-h1 em{font-style:italic;color:var(--gold3);text-shadow:0 0 30px rgba(196,160,68,.2);}
+.reg-h1 span{display:block;font-size:8vw;color:var(--champagne);font-weight:300;}
+.reg-desc{font-size:4.2vw;color:var(--muted);line-height:1.6;font-style:italic;margin-bottom:5vw;border-left:2px solid var(--gold-dark);padding-left:4vw;background:rgba(196,160,68,.02);padding-top:2vw;padding-bottom:2vw;}
+.reg-desc strong{color:var(--champagne);font-style:normal;}
+.reg-form{padding:6vw 6vw 0;}
+.field{margin-bottom:4.5vw;}
+.field label{display:block;font-family:'DM Mono',monospace;font-size:2.6vw;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);margin-bottom:2vw;}
+.field input{width:100%;padding:4.2vw 4.5vw;background:var(--obsidian3);border:1px solid var(--border2);border-bottom:2px solid var(--border3);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:5vw;outline:none;-webkit-appearance:none;transition:border-color .25s,background .25s,box-shadow .25s;}
+.field input:focus{border-bottom-color:var(--emerald4);background:var(--obsidian4);box-shadow:0 2px 12px rgba(16,160,112,.08);}
+.field input::placeholder{color:var(--muted2);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:3.5vw;}
+.area-section-title{font-family:'DM Mono',monospace;font-size:2.6vw;letter-spacing:.28em;text-transform:uppercase;color:var(--gold2);margin-bottom:3.5vw;margin-top:1vw;}
+.areas-list{display:flex;flex-direction:column;gap:3vw;margin-bottom:7vw;}
+.area-card{display:flex;align-items:center;gap:4vw;padding:4.5vw 5vw;border:1px solid var(--border2);border-radius:2px;cursor:pointer;background:var(--obsidian3);transition:border-color .2s,background .2s,box-shadow .2s;min-height:18vw;position:relative;overflow:hidden;}
+.area-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:transparent;transition:background .2s;}
+.area-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:transparent;transition:background .2s;}
+.area-card.selected{border-color:var(--emerald3);background:rgba(16,160,112,.06);box-shadow:0 0 20px rgba(16,160,112,.06);}
+.area-card.selected::after{background:linear-gradient(180deg,var(--emerald4),var(--emerald));}
+.area-card.selected::before{background:linear-gradient(90deg,transparent,var(--emerald3),transparent);}
+.ac-radio{width:5.5vw;height:5.5vw;border-radius:50%;border:1.5px solid var(--border3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .2s,box-shadow .2s;}
+.area-card.selected .ac-radio{border-color:var(--emerald4);box-shadow:0 0 8px rgba(16,160,112,.3);}
+.ac-radio-dot{width:2.2vw;height:2.2vw;border-radius:50%;background:var(--emerald4);transform:scale(0);transition:transform .2s;}
+.area-card.selected .ac-radio-dot{transform:scale(1);}
+.ac-info{flex:1;}
+.ac-name{font-family:'Playfair Display',serif;font-size:5vw;font-weight:500;color:var(--cream);margin-bottom:1vw;}
+.ac-sub{font-size:3.2vw;color:var(--muted);line-height:1.3;font-style:italic;}
+.btn-start{width:100%;padding:5.5vw;background:transparent;border:1px solid var(--border3);border-radius:2px;color:var(--muted);font-family:'Playfair Display',serif;font-weight:500;font-size:4.2vw;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .3s;opacity:.25;pointer-events:none;position:relative;overflow:hidden;}
+.btn-start.ready{opacity:1;pointer-events:all;border-color:var(--gold-dark);color:var(--gold2);animation:goldPulse 3s ease infinite;}
+.btn-start.ready::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);}
+.btn-start.ready:active{background:var(--gold);color:var(--obsidian);animation:none;}
+
+/* EXAM */
+#screen-exam{display:none;}
+#screen-exam.active{display:block;padding-bottom:22vw;background:var(--obsidian);}
+.top-bar{position:sticky;top:0;z-index:100;background:rgba(7,7,10,.98);border-bottom:1px solid var(--border);padding:3vw 5vw 2.5vw;position:relative;}
+.top-bar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.5;}
+.bar-r1{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5vw;}
+.bar-name{font-family:'DM Mono',monospace;font-size:2.8vw;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:60%;}
+.bar-name strong{color:var(--champagne);font-family:'Playfair Display',serif;font-size:3.2vw;}
+.bar-scores{display:flex;gap:3vw;}
+.s-ok{font-family:'DM Mono',monospace;font-size:3vw;color:var(--emerald4);}
+.s-err{font-family:'DM Mono',monospace;font-size:3vw;color:var(--ruby2);}
+.bar-r2{display:flex;align-items:center;gap:2.5vw;}
+.bar-qnum{font-family:'DM Mono',monospace;font-size:2.8vw;color:var(--muted);white-space:nowrap;min-width:10vw;}
+.prog-track{flex:1;height:1.5px;background:var(--border2);border-radius:999px;overflow:hidden;}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--emerald2),var(--emerald4),var(--gold2));border-radius:999px;transition:width .4s ease;}
+.bar-pct{font-family:'DM Mono',monospace;font-size:2.8vw;color:var(--muted);min-width:7vw;text-align:right;}
+.stage{padding:4vw 5vw;}
+.timer-row{display:flex;align-items:center;gap:4vw;padding:3.5vw 4.5vw;background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;margin-bottom:4vw;position:relative;overflow:hidden;}
+.timer-row::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.4;}
+.timer-ring{position:relative;width:13vw;height:13vw;flex-shrink:0;}
+.timer-ring svg{transform:rotate(-90deg);width:100%;height:100%;}
+.ring-bg{stroke:var(--border2);fill:none;stroke-width:2;}
+.ring-bar{fill:none;stroke-width:2;stroke-linecap:round;stroke-dasharray:125.6;stroke-dashoffset:0;transition:stroke-dashoffset .9s linear,stroke .5s;}
+.ring-txt{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'DM Mono',monospace;font-weight:500;font-size:3.5vw;color:var(--cream);}
+.tr-ok .ring-bar{stroke:var(--emerald4);}
+.tr-mid .ring-bar{stroke:var(--gold2);}
+.tr-low .ring-bar{stroke:var(--ruby2);}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.15;}}
+.tr-low .ring-txt{color:var(--ruby2);animation:pulse 1s infinite;}
+.timer-meta{flex:1;}
+.timer-strong{font-family:'Playfair Display',serif;font-size:4.2vw;color:var(--champagne);display:block;margin-bottom:.8vw;}
+.timer-sub{font-size:3vw;color:var(--muted);font-style:italic;}
+.q-card{background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;padding:5.5vw 5vw;position:relative;overflow:hidden;margin-bottom:3vw;}
+.q-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.q-card.T::before{background:linear-gradient(90deg,var(--gold-dark),var(--gold3));}
+.q-card.B::before{background:linear-gradient(90deg,var(--emerald),var(--emerald4));}
+.q-card.I::before{background:linear-gradient(90deg,var(--mauve),var(--mauve4));}
+.q-card.C::before{background:linear-gradient(90deg,var(--sapphire),var(--sapphire3));}
+.q-card.c-ok{border-color:rgba(16,160,112,.4);}
+.q-card.c-err{border-color:rgba(168,30,60,.4);}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
+.q-card.c-err{animation:shake .22s ease;}
+.q-meta{display:flex;align-items:center;gap:2.5vw;margin-bottom:4vw;}
+.q-badge{padding:.9vw 3vw;border-radius:2px;font-family:'DM Mono',monospace;font-size:2.3vw;letter-spacing:.15em;text-transform:uppercase;border:1px solid;}
+.T .q-badge{color:var(--gold3);border-color:rgba(196,160,68,.28);background:rgba(196,160,68,.06);}
+.B .q-badge{color:var(--emerald4);border-color:rgba(16,160,112,.22);background:rgba(16,160,112,.05);}
+.I .q-badge{color:var(--mauve4);border-color:rgba(92,58,122,.28);background:rgba(92,58,122,.07);}
+.C .q-badge{color:var(--sapphire3);border-color:rgba(42,90,154,.22);background:rgba(42,90,154,.06);}
+.q-tema{font-size:3vw;color:var(--muted);font-style:italic;}
+.q-text{font-family:'Playfair Display',serif;font-size:4.8vw;line-height:1.6;color:var(--cream);margin-bottom:5vw;font-weight:400;}
+.katex{font-size:.95em !important;}
+.katex .frac-line{border-bottom-width:.07em;}
+.q-text .katex{font-size:1em !important;}
+.options{display:flex;flex-direction:column;gap:2.5vw;}
+.opt{display:flex;align-items:flex-start;gap:3.5vw;padding:4vw 4.5vw;border:1px solid var(--border2);border-radius:2px;cursor:pointer;background:var(--obsidian4);transition:all .15s;user-select:none;min-height:13vw;}
+.opt:active:not(.dis){border-color:var(--emerald3);background:rgba(16,160,112,.06);}
+.opt-lt{font-family:'Playfair Display',serif;font-size:3.8vw;font-weight:700;min-width:5vw;padding-top:.5vw;color:var(--muted);flex-shrink:0;}
+.opt-tx{font-family:'Cormorant Garamond',serif;font-size:4.2vw;line-height:1.55;color:var(--cream);}
+.opt.opt-display{align-items:center;}
+.opt.opt-display .opt-tx{display:flex;align-items:center;}
+.opt-tx .katex-display{margin:0;}
+.opt-tx .katex{font-size:1em !important;}
+.opt.c-ok{background:rgba(10,92,64,.14);border-color:rgba(16,160,112,.45);}
+.opt.c-ok .opt-lt{color:var(--emerald4);}
+.opt.c-err{background:rgba(122,20,40,.1);border-color:rgba(168,30,60,.45);}
+.opt.c-err .opt-lt{color:var(--ruby2);}
+.opt.dis{cursor:default;pointer-events:none;}
+.tip-box{display:none;margin-top:4vw;padding:4vw 4.5vw;border-radius:2px;border-left:2px solid;font-size:3.8vw;line-height:1.65;color:var(--text2);background:rgba(7,7,10,.7);font-style:italic;}
+.tip-box.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:translateY(0);}}
+.tip-box.show{animation:fadeUp .2s ease;}
+.T .tip-box{border-color:var(--gold2);}
+.B .tip-box{border-color:var(--emerald4);}
+.I .tip-box{border-color:var(--mauve3);}
+.C .tip-box{border-color:var(--sapphire3);}
+.c-ok .tip-box{border-color:var(--emerald4) !important;}
+.c-err .tip-box{border-color:var(--ruby2) !important;}
+.tip-lbl{font-family:'DM Mono',monospace;font-size:2.6vw;font-weight:500;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5vw;font-style:normal;}
+.c-ok .tip-lbl{color:var(--emerald4);}
+.c-err .tip-lbl{color:var(--ruby2);}
+.to-badge{display:none;margin-top:3vw;padding:3vw 4vw;border-radius:2px;background:rgba(122,20,40,.08);border:1px solid rgba(168,30,60,.2);font-size:3.5vw;color:var(--ruby2);text-align:center;font-style:italic;}
+.to-badge.show{display:block;}
+.bottom-nav{position:sticky;bottom:0;z-index:100;background:rgba(7,7,10,.98);border-top:1px solid var(--border);padding:3.5vw 5vw;display:flex;align-items:center;justify-content:space-between;min-height:16vw;position:relative;}
+.bottom-nav::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.4;}
+.result-stamp{font-family:'Playfair Display',serif;font-size:4vw;font-weight:500;letter-spacing:.03em;}
+.rs-ok{color:var(--emerald4);}
+.rs-err{color:var(--ruby2);}
+.rs-to{color:var(--gold2);}
+.btn-next{display:none;align-items:center;gap:2.5vw;padding:3.5vw 7vw;border:1px solid var(--gold-dark);border-radius:2px;cursor:pointer;background:transparent;color:var(--gold2);font-family:'Playfair Display',serif;font-weight:500;font-size:3.8vw;letter-spacing:.15em;text-transform:uppercase;min-height:13vw;transition:all .2s;}
+.btn-next.show{display:flex;}
+.btn-next:active{background:var(--gold);color:var(--obsidian);}
+
+/* RESULTS */
+#screen-results{background:radial-gradient(ellipse 55% 28% at 50% 0%,rgba(10,92,64,.09) 0%,transparent 50%),radial-gradient(ellipse 40% 25% at 100% 100%,rgba(92,58,122,.06) 0%,transparent 50%),var(--obsidian);padding-bottom:14vw;}
+.r-topbar{padding:6vw 6vw 5vw;border-bottom:1px solid var(--border);background:rgba(7,7,10,.92);position:sticky;top:0;z-index:10;position:relative;}
+.r-topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--lux-line);}
+.r-eyebrow{font-family:'DM Mono',monospace;font-size:2.4vw;color:var(--emerald4);letter-spacing:.35em;text-transform:uppercase;margin-bottom:1.5vw;}
+.r-title{font-family:'Playfair Display',serif;font-weight:400;font-size:7.5vw;color:var(--cream);margin-bottom:1vw;}
+.r-student{font-size:3.2vw;color:var(--muted);font-style:italic;}
+.r-student strong{color:var(--champagne);font-style:normal;font-family:'Playfair Display',serif;}
+.r-body{padding:5vw 5.5vw 0;}
+.rank-hero{margin-bottom:5vw;padding:6vw 5vw;border-radius:2px;border:1px solid;position:relative;overflow:hidden;}
+.rank-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);}
+.rank-diamond{background:rgba(165,225,255,.04);border-color:rgba(165,225,255,.28);}
+.rank-emerald{background:rgba(16,160,112,.06);border-color:rgba(16,160,112,.28);}
+.rank-gold{background:rgba(196,160,68,.07);border-color:rgba(196,160,68,.28);}
+.rank-mauve{background:rgba(92,58,122,.08);border-color:rgba(154,120,200,.25);}
+.rank-silver{background:rgba(180,180,200,.04);border-color:rgba(180,180,200,.2);}
+.rank-bronze{background:rgba(140,90,50,.05);border-color:rgba(180,120,70,.2);}
+.rank-inner{display:flex;align-items:center;gap:5vw;}
+.rank-icon{font-size:14vw;line-height:1;flex-shrink:0;}
+.rank-badge-box{display:flex;flex-direction:column;align-items:center;justify-content:center;width:20vw;height:20vw;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;position:relative;background:rgba(0,0,0,.25);}
+.rank-badge-box::before{content:'';position:absolute;inset:3px;border-radius:50%;border:0.5px solid currentColor;opacity:.4;}
+.rank-badge-pct{font-family:'Playfair Display',serif;font-size:7vw;font-weight:300;line-height:1;letter-spacing:-.02em;}
+.rank-badge-label{font-family:'DM Mono',monospace;font-size:2.2vw;letter-spacing:.25em;text-transform:uppercase;opacity:.7;margin-top:.5vw;}
+.rank-diamond .rank-badge-box{color:#C8EEFF;box-shadow:0 0 20px rgba(200,238,255,.15);}
+.rank-emerald .rank-badge-box{color:var(--emerald4);box-shadow:0 0 20px rgba(16,160,112,.15);}
+.rank-gold .rank-badge-box{color:var(--gold3);box-shadow:0 0 20px rgba(196,160,68,.18);}
+.rank-mauve .rank-badge-box{color:var(--mauve4);box-shadow:0 0 20px rgba(92,58,122,.2);}
+.rank-silver .rank-badge-box{color:#C8C8DE;box-shadow:0 0 12px rgba(200,200,220,.1);}
+.rank-bronze .rank-badge-box{color:#D0986A;box-shadow:0 0 12px rgba(208,152,106,.1);}
+.rank-info{flex:1;}
+.rank-label{font-family:'DM Mono',monospace;font-size:2.4vw;letter-spacing:.35em;text-transform:uppercase;margin-bottom:1vw;}
+.rank-accent{font-family:'Playfair Display',serif;font-size:7vw;font-weight:700;line-height:1.1;margin-bottom:2vw;letter-spacing:.01em;}
+.rank-diamond .rank-accent{color:#C8EEFF;text-shadow:0 0 20px rgba(200,238,255,.3);}
+.rank-emerald .rank-accent{color:var(--emerald4);text-shadow:0 0 20px rgba(16,160,112,.25);}
+.rank-gold .rank-accent{color:var(--gold3);text-shadow:0 0 20px rgba(196,160,68,.25);}
+.rank-mauve .rank-accent{color:var(--mauve4);text-shadow:0 0 20px rgba(154,120,200,.25);}
+.rank-silver .rank-accent{color:#C8C8DE;}
+.rank-bronze .rank-accent{color:#D0986A;}
+.rank-title{font-family:'Playfair Display',serif;font-size:8vw;font-weight:700;line-height:1;margin-bottom:1.5vw;}
+.rank-sub{font-size:3.8vw;color:var(--champagne);font-style:italic;line-height:1.5;margin-top:1.5vw;opacity:.9;}
+.rank-diamond .rank-label,.rank-diamond .rank-title{color:#C8EEFF;}
+.rank-emerald .rank-label,.rank-emerald .rank-title{color:var(--emerald4);}
+.rank-gold .rank-label,.rank-gold .rank-title{color:var(--gold3);}
+.rank-mauve .rank-label,.rank-mauve .rank-title{color:var(--mauve4);}
+.rank-silver .rank-label,.rank-silver .rank-title{color:#C8C8DE;}
+.rank-bronze .rank-label,.rank-bronze .rank-title{color:#D0986A;}
+.r-score-hero{background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;padding:6vw 5vw;margin-bottom:4vw;display:flex;align-items:center;gap:5vw;position:relative;overflow:hidden;}
+.r-score-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.5;}
+.big-score{font-family:'Playfair Display',serif;font-weight:300;font-size:22vw;line-height:1;letter-spacing:-.03em;flex-shrink:0;}
+.bg-diamond{color:#C8EEFF;text-shadow:0 0 30px rgba(180,220,255,.25);}
+.bg-emerald{color:var(--emerald4);text-shadow:0 0 30px rgba(16,160,112,.2);}
+.bg-gold{color:var(--gold3);text-shadow:0 0 30px rgba(196,160,68,.2);}
+.bg-mauve{color:var(--mauve4);text-shadow:0 0 30px rgba(92,58,122,.25);}
+.bg-silver{color:#C8C8DE;}
+.bg-bronze{color:#D0986A;}
+.score-right{flex:1;}
+.score-label{font-family:'DM Mono',monospace;font-size:2.3vw;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5vw;}
+.score-detail{font-size:3.8vw;color:var(--champagne);font-style:italic;margin-bottom:2vw;line-height:1.4;font-family:'Playfair Display',serif;}
+.score-bar-track{width:100%;height:6px;background:var(--border3);border-radius:999px;overflow:hidden;margin-top:2vw;}
+.score-bar-fill{height:100%;border-radius:999px;width:0%;transition:width 1.4s cubic-bezier(.16,1,.3,1) .4s;box-shadow:0 0 10px currentColor;}
+.r-msg{font-family:'Playfair Display',serif;font-size:4.2vw;font-style:italic;border:1px solid var(--border2);border-left:3px solid var(--gold2);border-radius:1vw;padding:5vw 5.5vw;margin-bottom:4.5vw;line-height:1.8;color:var(--champagne);background:var(--obsidian3);position:relative;overflow:hidden;}
+.r-msg::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.3;}
+.r-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;margin-bottom:4.5vw;}
+.r-stat-box{background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;padding:5.5vw 2vw 4.5vw;text-align:center;position:relative;overflow:hidden;}
+.r-stat-box::before{content:'';position:absolute;top:0;left:20%;right:20%;height:1px;background:var(--lux-line);opacity:.4;}
+.r-stat-num{font-family:'Playfair Display',serif;font-size:10vw;font-weight:300;line-height:1;margin-bottom:1.5vw;}
+.r-stat-lbl{font-family:'DM Mono',monospace;font-size:2.3vw;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;}
+.r-stat-green .r-stat-num{color:var(--emerald4);}
+.r-stat-red .r-stat-num{color:var(--ruby2);}
+.r-stat-yellow .r-stat-num{color:var(--gold2);}
+.r-highlights{display:grid;grid-template-columns:1fr 1fr;gap:3vw;margin-bottom:4.5vw;}
+.r-hl-box{background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;padding:4.5vw 4.5vw;}
+.r-hl-tag{font-family:'DM Mono',monospace;font-size:2.5vw;font-weight:500;letter-spacing:.1em;margin-bottom:2.5vw;display:flex;align-items:center;gap:1.5vw;}
+.r-hl-tag.up{color:var(--emerald4);}
+.r-hl-tag.dn{color:var(--ruby2);}
+.r-hl-lbl{font-family:'DM Mono',monospace;font-size:2.2vw;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1vw;}
+.r-hl-tema{font-family:'Playfair Display',serif;font-size:3.8vw;color:var(--cream);font-style:italic;margin-bottom:1.5vw;line-height:1.3;}
+.r-hl-score{font-family:'DM Mono',monospace;font-size:2.8vw;color:var(--muted);}
+.r-breakdown-box{background:var(--obsidian3);border:1px solid var(--border2);border-radius:2px;padding:5.5vw 5vw 4vw;margin-bottom:5vw;position:relative;overflow:hidden;}
+.r-breakdown-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.5;}
+.r-breakdown-title{font-family:'DM Mono',monospace;font-size:2.4vw;font-weight:500;color:var(--gold2);letter-spacing:.25em;text-transform:uppercase;margin-bottom:5vw;}
+.bd-row{display:flex;align-items:center;gap:3vw;margin-bottom:3.5vw;}
+.bd-lbl{font-family:'Cormorant Garamond',serif;font-size:3.6vw;color:var(--champagne);min-width:32vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bd-track{flex:1;height:3px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden;}
+.bd-bar{height:100%;border-radius:999px;filter:brightness(1.15);}
+.bd-sc{font-family:'Cormorant Garamond',serif;font-size:3.4vw;min-width:14vw;text-align:right;font-style:italic;letter-spacing:.02em;}
+.sheets-status{margin-bottom:4.5vw;padding:3.5vw 4.5vw;border-radius:2px;font-family:'DM Mono',monospace;font-size:3vw;text-align:center;letter-spacing:.08em;}
+.sheets-ok{background:rgba(10,92,64,.08);border:1px solid rgba(16,160,112,.2);color:var(--emerald4);}
+.sheets-err{background:rgba(122,20,40,.06);border:1px solid rgba(168,30,60,.18);color:var(--ruby2);}
+.sheets-saving{background:rgba(196,160,68,.05);border:1px solid rgba(196,160,68,.18);color:var(--gold2);}
+.r-actions{display:flex;justify-content:center;}
+.btn-retry{display:inline-flex;align-items:center;gap:3vw;padding:4.5vw 10vw;border:1px solid var(--gold-dark);border-radius:2px;cursor:pointer;background:transparent;color:var(--gold2);font-family:'Playfair Display',serif;font-weight:500;font-size:4vw;letter-spacing:.2em;text-transform:uppercase;min-height:14vw;transition:all .25s;position:relative;overflow:hidden;}
+.btn-retry::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--lux-line);opacity:.6;}
+.btn-retry:active{background:var(--gold);color:var(--obsidian);}
+.saving-toast{position:fixed;bottom:6vw;left:50%;transform:translateX(-50%) translateY(5vw);padding:3vw 7vw;background:rgba(10,92,64,.15);border:1px solid rgba(16,160,112,.3);border-radius:999px;color:var(--emerald4);font-family:'DM Mono',monospace;font-size:3vw;opacity:0;transition:all .35s;z-index:999;pointer-events:none;white-space:nowrap;letter-spacing:.1em;}
+.saving-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.bd-legend{display:flex;flex-wrap:wrap;gap:2vw 4vw;margin-bottom:4vw;padding-bottom:4vw;border-bottom:1px solid var(--border);}
+.bd-leg-item{display:flex;align-items:center;gap:1.5vw;font-family:'DM Mono',monospace;font-size:2.2vw;color:var(--muted);letter-spacing:.08em;}
+.bd-leg-dot{width:2vw;height:2vw;border-radius:50%;flex-shrink:0;}
+@keyframes slideIn{from{opacity:0;transform:translateX(6vw);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideOut{from{opacity:1;transform:translateX(0);}to{opacity:0;transform:translateX(-6vw);}}
+.q-anim{animation:slideIn .25s ease;}
+.q-anim.out{animation:slideOut .16s ease forwards;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.rank-hero{animation:fadeIn .5s ease .1s both;}
+.ac-icon-photo{position:relative;flex-shrink:0;width:15vw;height:15vw;padding:2px;border-radius:50%;background:linear-gradient(135deg,#F8ECA8,#C8A448,#7A5618,#C8A448,#F8ECA8);}
+.area-photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.95) contrast(1.05);border:2px solid #07070A;}
+.area-photo-ring{display:none;}
+.area-card:hover .area-photo{filter:brightness(1.05) contrast(1.05);}
+</style>
+</head>
+<body>
+
+<!-- REGISTRO -->
+<div class="screen active" id="screen-register">
+  <div class="reg-topbar">
+    <span class="reg-brand">UNI · UNMS · PUCP · UNSA</span>
+    <span class="reg-badge">Admisión 2026</span>
+  </div>
+  <div class="reg-hero">
+    <div class="reg-eyebrow">Simulacro Oficial</div>
+    <h1 class="reg-h1"><em>Examen</em><span>de Raz. Matemático</span></h1>
+    <p class="reg-desc"><strong>40 preguntas</strong> · Corrección instantánea · Tips de resolución</p>
+  </div>
+  <div class="reg-form">
+    <div class="field-row">
+      <div class="field"><label>Nombre</label><input id="inp-n" type="text" placeholder="Ing. David" autocomplete="given-name" oninput="chk()"></div>
+      <div class="field"><label>Apellido</label><input id="inp-a" type="text" placeholder="Samuel" autocomplete="family-name" oninput="chk()"></div>
+    </div>
+    <div class="area-section-title">Área de postulación</div>
+    <div class="areas-list">
+      <div class="area-card" onclick="selArea('Biomédicas',this)">
+        <div class="ac-radio"><div class="ac-radio-dot"></div></div>
+        <div class="ac-info"><div class="ac-name">Biomédicas</div><div class="ac-sub">Medicina, Enfermería, Farmacia</div></div>
+      </div>
+      <div class="area-card" onclick="selArea('Ingenierías',this)">
+        <div class="ac-radio"><div class="ac-radio-dot"></div></div>
+        <div class="ac-info"><div class="ac-name">Ingenierías</div><div class="ac-sub">Civil, Sistemas, Electrónica</div></div>
+      </div>
+      <div class="area-card" onclick="selArea('Sociales',this)">
+        <div class="ac-radio"><div class="ac-radio-dot"></div></div>
+        <div class="ac-info"><div class="ac-name">Sociales</div><div class="ac-sub">Derecho, Psicología, CCSS</div></div>
+      </div>
+    </div>
+    <button class="btn-start" id="btn-start" onclick="startExam()">Comenzar Examen →</button>
+  </div>
+</div>
+
+<!-- EXAMEN -->
+<div class="screen" id="screen-exam">
+  <div class="top-bar">
+    <div class="bar-r1">
+      <div class="bar-name" id="bar-st">—</div>
+      <div class="bar-scores"><span class="s-ok" id="bar-ok">0 ✓</span><span class="s-err" id="bar-err">0 ✗</span></div>
+    </div>
+    <div class="bar-r2">
+      <span class="bar-qnum" id="bar-ctr">1/40</span>
+      <div class="prog-track"><div class="prog-fill" id="bar-fill"></div></div>
+      <span class="bar-pct" id="bar-pct">0%</span>
+    </div>
+  </div>
+  <div class="stage"><div id="qw"></div></div>
+  <div class="bottom-nav">
+    <div class="result-stamp" id="rst"></div>
+    <button class="btn-next" id="btn-nx" onclick="nxt()">Siguiente <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+  </div>
+</div>
+
+<!-- RESULTADOS -->
+<div class="screen" id="screen-results">
+  <div class="r-topbar">
+    <div class="r-eyebrow">Resultado Final</div>
+    <div class="r-title">Examen Completado</div>
+    <div class="r-student" id="r-st">—</div>
+  </div>
+  <div class="r-body">
+    <div class="r-score-hero">
+      <div class="big-score" id="r-score">—</div>
+      <div class="score-right">
+        <div class="score-label">Puntaje Final / 100</div>
+        <div class="score-detail" id="r-pct">—</div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="r-bar"></div></div>
+      </div>
+    </div>
+    <div class="r-msg" id="r-msg">—</div>
+    <div class="r-stats-row">
+      <div class="r-stat-box r-stat-green"><div class="r-stat-num" id="r-ok">0</div><div class="r-stat-lbl">Correctas</div></div>
+      <div class="r-stat-box r-stat-red"><div class="r-stat-num" id="r-err">0</div><div class="r-stat-lbl">Incorrectas</div></div>
+      <div class="r-stat-box r-stat-yellow"><div class="r-stat-num" id="r-to">0</div><div class="r-stat-lbl">Sin tiempo</div></div>
+    </div>
+    <div class="r-highlights" id="r-highlights"></div>
+    <div class="r-breakdown-box">
+      <div class="r-breakdown-title">Rendimiento por tema</div>
+      <div id="r-bk"></div>
+    </div>
+    <div id="sheets-status" class="sheets-status" style="display:none"></div>
+    <div class="r-actions"><button class="btn-retry" onclick="retry()">↺ Nuevo intento</button></div>
+  </div>
+</div>
+
+<div class="saving-toast" id="toast">✓ Guardado en Sheets</div>
+
+<script>
+var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbwrVJ6YWfMGxJS-EckL1sHe-AEXP5mSlu4RhhVyyvmycOy_CRoh7KSNYPbehFWUHcsq/exec';
+
+var RANKS=[
+  {min:95,max:100,cls:'rank-diamond',scoreCls:'bg-diamond',icon:'💎',label:'Diamond',title:'Maestro',sub:'Llegaste al nivel más alto. Eso no es suerte, es trabajo real.',barColor:'#C8EEFF',sheetColor:'#BDD7EE'},
+  {min:85,max:94, cls:'rank-emerald',scoreCls:'bg-emerald',icon:'🟢',label:'Esmeralda',title:'Experto', sub:'Tus bases son muy fuertes. El ingreso a UNSA está muy cerca.',barColor:'#10A070',sheetColor:'#C6EFCE'},
+  {min:70,max:84, cls:'rank-gold',   scoreCls:'bg-gold',   icon:'🥇',label:'Oro',     title:'Avanzado',sub:'Estás por encima del promedio. Afina los temas flojos y llegas.',barColor:'#DDB85C',sheetColor:'#FFEB9C'},
+  {min:50,max:69, cls:'rank-mauve',  scoreCls:'bg-mauve',  icon:'🔮',label:'Amatista', title:'Intermedio',sub:'Vas avanzando y se nota. Sigue practicando, los resultados llegan.',barColor:'#9A78C8',sheetColor:'#E2CFED'},
+  {min:30,max:49, cls:'rank-silver', scoreCls:'bg-silver', icon:'🥈',label:'Plata',   title:'En Camino',sub:'Todavía hay trecho, pero ya estás en movimiento. Eso cuenta.',barColor:'#C8C8DE',sheetColor:'#EDEDED'},
+  {min:0, max:29, cls:'rank-bronze', scoreCls:'bg-bronze', icon:'🥉',label:'Bronce',  title:'Empezando',sub:'Este es tu primer paso. Todos comenzamos aquí. Vuelve mañana.',barColor:'#D0986A',sheetColor:'#FFCCBB'}
+];
+function getRank(p){return RANKS.find(function(r){return p>=r.min&&p<=r.max;})||RANKS[RANKS.length-1];}
+
+function renderMath(el){
+  function d(){if(typeof renderMathInElement==='undefined'){setTimeout(d,200);return;}
+  try{renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false,errorColor:'#ef4444',strict:false});}catch(e){}}d();
+}
+
+var QS=[
+  {n:1,t:"T",tm:"Planteo de Ecuaciones",p:"¿Qué representa en lenguaje matemático la frase: 'un número excede a otro en 5'?",o:["$x + y = 5$","$x - y = 5$","$x = 5y$","$x/y = 5$"],a:1,tip:"'Exceder' significa que la diferencia entre el mayor y el menor es esa cantidad. Se plantea con una resta: x - y = 5."},
+  {n:2,t:"B",tm:"Planteo de Ecuaciones",p:"El doble de un número, aumentado en 5 es igual a 17. ¿Cuál es el número?",o:["4","5","6","8"],a:2,tip:"Ecuación: 2x + 5 = 17 → 2x = 12 → x = 6."},
+  {n:3,t:"B",tm:"Planteo de Ecuaciones",p:"Si a la tercera parte de mi edad le sumo 10, obtengo 15. ¿Qué edad tengo?",o:["10","15","20","25"],a:1,tip:"Ecuación: x/3 + 10 = 15 → x/3 = 5 → x = 15."},
+  {n:4,t:"I",tm:"Planteo de Ecuaciones",p:"La suma de tres números consecutivos es 45. ¿Cuál es el número mayor?",o:["13","14","15","16"],a:3,tip:"Números: x, (x+1), (x+2). Suma: 3x + 3 = 45 → 3x = 42 → x = 14. Mayor: 16."},
+  {n:5,t:"B",tm:"Planteo de Ecuaciones",p:"Si el cuadrado de un número positivo disminuye en 4, se obtiene 32. ¿Cuál es el número?",o:["4","5","6","8"],a:2,tip:"Ecuación: x² - 4 = 32 → x² = 36. Como es positivo, x = 6."},
+  {n:6,t:"I",tm:"Planteo de Ecuaciones",p:"Ana tiene el doble de dinero que Beto. Si Ana le da S/ 20 a Beto, ambos tendrían igual suma. ¿Cuánto tienen entre los dos?",o:["S/ 80","S/ 100","S/ 120","S/ 160"],a:2,tip:"Ana=2x, Beto=x. Ecuación: 2x - 20 = x + 20 → x = 40. Ana tiene 80 y Beto 40. Total = 120."},
+  {n:7,t:"B",tm:"Planteo de Ecuaciones",p:"El cuádruple de la suma de un número con 3 es 28. Hallar el número.",o:["2","3","4","5"],a:2,tip:"Ecuación: 4(x + 3) = 28 → x + 3 = 7 → x = 4. Respeta el paréntesis por la palabra 'suma'."},
+  {n:8,t:"I",tm:"Planteo de Ecuaciones",p:"Dos números suman 40 y su diferencia es 12. ¿Cuál es el número menor?",o:["10","12","14","16"],a:2,tip:"May=a, Men=b. a+b=40, a-b=12. Restando o sumando: 2a=52 → a=26. Entonces b=14 (menor)."},
+  {n:9,t:"B",tm:"Planteo de Ecuaciones",p:"La mitad del triple de un número equivale a 12. ¿Cuál es el número?",o:["6","8","10","12"],a:1,tip:"Ecuación: (3x)/2 = 12 → 3x = 24 → x = 8."},
+  {n:10,t:"I",tm:"Planteo de Ecuaciones",p:"Las edades de un padre y su hijo suman 50. Si el padre tiene 30 años más que el hijo, ¿cuántos años tiene el hijo?",o:["5","10","15","20"],a:1,tip:"P + H = 50. Como P = H + 30, reemplazamos: (H+30) + H = 50 → 2H=20 → H = 10."},
+  {n:11,t:"T",tm:"Planteo de Ecuaciones",p:"Traduce al lenguaje matemático: 'El cuadrado de la suma de dos números'",o:["$a^2 + b^2$","$a + b^2$","$(a+b)^2$","$2(a+b)$"],a:2,tip:"Por no haber una coma antes de 'de', el cuadrado engloba a todo: (a+b)²."},
+  {n:12,t:"B",tm:"Planteo de Ecuaciones",p:"¿Qué número sumado con su mitad resulta 30?",o:["10","15","20","25"],a:2,tip:"x + x/2 = 30 → 3x/2 = 30 → 3x=60 → x=20."},
+  {n:13,t:"I",tm:"Planteo de Ecuaciones",p:"Si compré 4 libros y me sobraron S/ 10, pero si compro 6 me faltarían S/ 20. ¿Cuánto dinero tenía?",o:["S/ 40","S/ 55","S/ 70","S/ 85"],a:2,tip:"Sea p el precio. Dinero = 4p + 10 = 6p - 20. Entonces 2p = 30 → p=15. Dinero = 4(15)+10 = 70."},
+  {n:14,t:"I",tm:"Planteo de Ecuaciones",p:"El exceso de un número sobre 15 es igual al exceso de 45 sobre el dicho número. Hallar el número.",o:["20","25","30","35"],a:2,tip:"x - 15 = 45 - x → 2x = 60 → x = 30."},
+  {n:15,t:"T",tm:"Fracciones",p:"¿Qué caracteriza a una fracción propia?",o:["El numerador es mayor que el denominador","El numerador y denominador son iguales","El numerador es menor que el denominador","Es un número entero"],a:2,tip:"Fracción propia: Numerador < Denominador. Su valor siempre es menor a 1 (ejemplo: 3/5)."},
+  {n:16,t:"B",tm:"Fracciones",p:"¿Cuánto es los 2/3 de 60?",o:["20","30","40","50"],a:2,tip:"La palabra 'de' significa multiplicación. (2/3) × 60 = 120/3 = 40."},
+  {n:17,t:"B",tm:"Fracciones",p:"Simplifica la fracción 48/64",o:["2/3","3/4","4/5","5/6"],a:1,tip:"Dividiendo numerador y denominador entre el divisor mayor común (16): 48÷16 = 3, 64÷16 = 4. Queda 3/4."},
+  {n:18,t:"I",tm:"Fracciones",p:"Gasté los 3/5 de mi dinero. ¿Qué fracción de lo que tenía me queda?",o:["1/5","2/5","3/5","4/5"],a:1,tip:"El total completo es la unidad (5/5). Si gastas 3/5, te sobra la diferencia: 5/5 - 3/5 = 2/5."},
+  {n:19,t:"I",tm:"Fracciones",p:"Si los 3/4 de la edad de Luis son 24 años, ¿cuál es su edad?",o:["20 años","24 años","28 años","32 años"],a:3,tip:"(3/4)x = 24 → 3x = 96 → x = 32."},
+  {n:20,t:"I",tm:"Fracciones",p:"A un obrero le falta cavar los 2/7 de una zanja. Si ya avanzó 15 metros, ¿cuántos metros tiene la zanja?",o:["21 m","24 m","28 m","35 m"],a:0,tip:"Si le falta 2/7, ya excavó 5/7 del total. Entonces (5/7)×L = 15 → L = (15×7)/5 = 21 m."},
+  {n:21,t:"B",tm:"Fracciones",p:"¿Qué fracción de una hora representan 15 minutos?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"1 hora = 60 min. Fracción: Parte/Todo = 15/60 = 1/4."},
+  {n:22,t:"I",tm:"Fracciones",p:"Juan puede pintar un cuarto en 4 horas y Pedro en 6 horas. ¿Qué tiempo demorarían trabajando juntos? (Aprox)",o:["2 h","2.4 h","4 h","5 h"],a:1,tip:"Tasas: 1/4 + 1/6 = 5/12. Invertimos para el tiempo: 12/5 = 2.4 horas."},
+  {n:23,t:"B",tm:"Fracciones",p:"¿Qué parte de 80 es 20?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"Es/De = 20/80 = 1/4. Recuerda que la palabra 'de' siempre señala el denominador."},
+  {n:24,t:"I",tm:"Fracciones",p:"Un caño llena un tanque en 3 horas y otro en 6 horas. Juntos, ¿en qué tiempo lo llenarán?",o:["1 h","2 h","4 h","9 h"],a:1,tip:"El primer caño llena 1/3 por hora. El segundo 1/6 por hora. Juntos 1/3 + 1/6 = 3/6 = 1/2 por hora. Lo llenan en 2h."},
+  {n:25,t:"I",tm:"Fracciones",p:"Al simplificar una fracción se obtiene 2/3. Si la suma de sus términos originales es 25, ¿cuál fue la fracción original?",o:["6/9","8/12","10/15","12/18"],a:2,tip:"Sea la fracción 2k/3k. Su suma es: 2k + 3k = 25 → 5k=25 → k=5. Numerador 2(5)=10, Denominador 3(5)=15. Queda 10/15."},
+  {n:26,t:"I",tm:"Fracciones",p:"Un estudiante resolvió los 3/8 de su tarea y aún le faltan 25 problemas. ¿Cuántos problemas eran en total?",o:["30","35","40","45"],a:2,tip:"Falta resolver: 1 - 3/8 = 5/8 del total. Entonces (5/8)x = 25 → x = (25×8)/5 = 40."},
+  {n:27,t:"I",tm:"Fracciones",p:"Si gasto la mitad de mi dinero, y luego la mitad del resto, ¿qué fracción del total me queda?",o:["1/2","1/3","1/4","1/8"],a:2,tip:"Gastas 1/2 → queda 1/2. Gastas mitad del resto (1/2 de 1/2) → queda la otra mitad: 1/2 × 1/2 = 1/4."},
+  {n:28,t:"T",tm:"Porcentajes",p:"¿A qué fracción irreducible equivale el 25%?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"El símbolo % equivale a dividir entre 100. 25% = 25/100, dividiendo entre 25 queda 1/4."},
+  {n:29,t:"B",tm:"Porcentajes",p:"¿Cuánto es el 40% de 200?",o:["40","60","80","100"],a:2,tip:"(40/100) × 200 = 80. Truco: anula dos ceros y multiplica 40 × 2 = 80."},
+  {n:30,t:"B",tm:"Porcentajes",p:"¿Qué porcentaje de 50 es 15?",o:["15%","20%","25%","30%"],a:3,tip:"Se hace la fracción Es/De y se multiplica por 100%. (15/50) × 100% = 15 × 2% = 30%."},
+  {n:31,t:"I",tm:"Porcentajes",p:"El 20% del 30% de cierta cantidad es 60. Hallar la cantidad.",o:["500","1000","2000","3000"],a:1,tip:"(20/100) × (30/100) × N = 60 → (6/100) × N = 60 → N = 6000 / 6 = 1000."},
+  {n:32,t:"B",tm:"Porcentajes",p:"En un salón hay 40 alumnos. Si el 60% son mujeres, ¿cuántos varones hay?",o:["16","20","24","28"],a:0,tip:"Si el 60% son mujeres, el 100% - 60% = 40% son varones. 40% de 40 = 16."},
+  {n:33,t:"I",tm:"Porcentajes",p:"Si el lado de un cuadrado aumenta un 10%, ¿en qué porcentaje aumenta su área?",o:["10%","20%","21%","100%"],a:2,tip:"Aumenta el lado a 110%. Nueva área = (110%)² = 1.21 = 121%. El área aumentó 21% (121% - 100%)."},
+  {n:34,t:"I",tm:"Porcentajes",p:"A un artículo de S/ 100 se le hacen dos descuentos sucesivos del 20% y 10%. ¿Cuál es el precio final?",o:["S/ 70","S/ 72","S/ 80","S/ 90"],a:1,tip:"Descuento 1 (20%): de 100 baja a 80. Descuento 2 (10% de 80): descuenta 8. Queda 80 - 8 = S/ 72."},
+  {n:35,t:"I",tm:"Porcentajes",p:"Se vende un televisor en S/ 1 200 ganando el 20% del costo. ¿Cuál fue el precio de costo?",o:["S/ 800","S/ 900","S/ 1000","S/ 1100"],a:2,tip:"Venta = Costo + Ganancia. 1200 = 100%C + 20%C = 120%C. Costo = 1200 / 1.2 = 1000."},
+  {n:36,t:"B",tm:"Porcentajes",p:"¿Cuánto es 30% más de 200?",o:["230","240","260","300"],a:2,tip:"Un aumento del 30% significa calcular el 130%. 130% de 200 = 260. (O hallar 30% que es 60, y sumar 200+60)."},
+  {n:37,t:"I",tm:"Porcentajes",p:"En una rebaja del 30%, pagué S/ 140 por una casaca. ¿Cuál era el precio original?",o:["S/ 170","S/ 180","S/ 200","S/ 210"],a:2,tip:"Como hubo rebaja del 30%, solo pagué el 70%. (70/100) × Precio = 140 → Precio = 200."},
+  {n:38,t:"T",tm:"Porcentajes",p:"El '10 por 40' equivale en porcentaje a un:",o:["10%","25%","40%","100%"],a:1,tip:"'10 por cada 40' se escribe 10/40. Simplificando es 1/4. En porcentaje (1/4 × 100%) = 25%."},
+  {n:39,t:"B",tm:"Porcentajes",p:"Si a 50 se le aumenta el 20%, el resultado es:",o:["60","70","80","90"],a:0,tip:"20% de 50 = (20×50)/100 = 10. Valor aumentado: 50 + 10 = 60."},
+  {n:40,t:"I",tm:"Porcentajes",p:"Si mi sueldo aumenta de S/ 400 a S/ 500, ¿en qué porcentaje aumentó?",o:["20%","25%","30%","100%"],a:1,tip:"Variación es = 500 - 400 = 100. Fracción de aumento: Aumento / Original = 100/400 = 1/4 = 25%."}
+];
+
+var tipoLbl={T:'Teoría',B:'Nivel Básico',I:'Nivel Intermedio',C:'Nivel Avanzado'};
+
+var TSEC=40,TOTAL=QS.length;
+var stu={n:'',a:'',area:''};
+var idx=0,ans=[],tmr=null,tLeft=0,done=false,pickedArea='',transitioning=false;
+
+function selArea(ar,el){pickedArea=ar;document.querySelectorAll('.area-card').forEach(function(c){c.classList.remove('selected');});el.classList.add('selected');chk();}
+function chk(){var n=document.getElementById('inp-n').value.trim();var a=document.getElementById('inp-a').value.trim();var b=document.getElementById('btn-start');if(n&&a&&pickedArea)b.classList.add('ready');else b.classList.remove('ready');}
+function startExam(){stu.n=document.getElementById('inp-n').value.trim();stu.a=document.getElementById('inp-a').value.trim();stu.area=pickedArea;idx=0;ans=[];transitioning=false;sw('screen-exam');renderQ();}
+function sw(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+
+function renderQ(){
+  done=false;tLeft=TSEC;transitioning=false;
+  var q=QS[idx];var pct=Math.round((idx/TOTAL)*100);
+  document.getElementById('bar-st').innerHTML='<strong>'+stu.n+' '+stu.a+'</strong>';
+  document.getElementById('bar-ctr').textContent=(idx+1)+'/'+TOTAL;
+  document.getElementById('bar-fill').style.width=pct+'%';
+  document.getElementById('bar-pct').textContent=pct+'%';
+  document.getElementById('bar-ok').textContent=ans.filter(function(a){return a.ok;}).length+' ✓';
+  document.getElementById('bar-err').textContent=ans.filter(function(a){return !a.ok;}).length+' ✗';
+  document.getElementById('rst').className='result-stamp';document.getElementById('rst').innerHTML='';
+  var nxBtn=document.getElementById('btn-nx');nxBtn.className='btn-next';
+  nxBtn.innerHTML=(idx<TOTAL-1?'Siguiente':'Ver Resultado')+' <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+  var letters=['A','B','C','D'];var optHtml='';
+  for(var oi=0;oi<q.o.length;oi++){
+    var optText=q.o[oi];
+    var isPureMath=/^\$[^$]/.test(optText.trim())&&/[^$]\$$/.test(optText.trim());
+    if(isPureMath){optText=optText.replace(/^\$/,'$$$$').replace(/\$$/,'$$$$');}
+    optHtml+='<div class="opt '+(isPureMath?'opt-display':'')+'" id="o'+oi+'" onclick="pick('+oi+')"><span class="opt-lt">'+letters[oi]+'</span><span class="opt-tx">'+optText+'</span></div>';
+  }
+  document.getElementById('qw').innerHTML=
+    '<div class="timer-row"><div class="timer-ring tr-ok" id="tr"><svg viewBox="0 0 52 52"><circle class="ring-bg" cx="26" cy="26" r="20"/><circle class="ring-bar" id="rb" cx="26" cy="26" r="20"/></svg><span class="ring-txt" id="rt">'+TSEC+'</span></div><div class="timer-meta"><span class="timer-strong">'+TSEC+' segundos</span><span class="timer-sub">'+tipoLbl[q.t]+' · '+q.tm+'</span></div></div>'+
+    '<div class="q-card '+q.t+' q-anim" id="qc"><div class="q-meta"><span class="q-badge">'+tipoLbl[q.t]+'</span><span class="q-tema">'+q.tm+'</span></div><div class="q-text" id="qtext"></div><div class="options" id="opts">'+optHtml+'</div><div class="to-badge" id="tob">⏱ Tiempo agotado — la respuesta correcta está marcada</div><div class="tip-box" id="tipb"><div class="tip-lbl" id="tipl"></div><span id="tipt"></span></div></div>';
+  document.getElementById('qtext').innerHTML=q.p;
+  renderMath(document.getElementById('qw'));window.scrollTo(0,0);startTmr();
+}
+
+function startTmr(){
+  clearInterval(tmr);var circ=125.6;
+  tmr=setInterval(function(){
+    tLeft--;var rb=document.getElementById('rb'),rt=document.getElementById('rt'),tr=document.getElementById('tr');
+    if(!rb){clearInterval(tmr);return;}
+    var p=tLeft/TSEC;rb.style.strokeDashoffset=circ*(1-p);rt.textContent=tLeft;
+    tr.className='timer-ring '+(p>.5?'tr-ok':p>.25?'tr-mid':'tr-low');
+    if(tLeft<=0){clearInterval(tmr);if(!done)timeout();}
+  },1000);
+}
+
+function pick(i){
+  if(done)return;done=true;clearInterval(tmr);
+  var q=QS[idx],ok=i===q.a;
+  ans.push({q:q.n,sel:i,ok:ok,to:false});
+  document.querySelectorAll('.opt').forEach(function(el,j){el.classList.add('dis');if(j===q.a)el.classList.add('c-ok');else if(j===i)el.classList.add('c-err');});
+  document.getElementById('qc').classList.add(ok?'c-ok':'c-err');
+  showTip(ok?'✓ Correcto':'✗ Incorrecto',q.tip);
+  var rs=document.getElementById('rst');rs.className='result-stamp '+(ok?'rs-ok':'rs-err');rs.innerHTML=ok?'✦ Correcto':'✦ Incorrecto';
+  document.getElementById('btn-nx').classList.add('show');
+}
+
+function timeout(){
+  done=true;var q=QS[idx];ans.push({q:q.n,sel:-1,ok:false,to:true});
+  document.querySelectorAll('.opt').forEach(function(el,j){el.classList.add('dis');if(j===q.a)el.classList.add('c-ok');});
+  document.getElementById('tob').classList.add('show');showTip('⏱ Tiempo agotado',q.tip);
+  var rs=document.getElementById('rst');rs.className='result-stamp rs-to';rs.innerHTML='⏱ Tiempo agotado';
+  document.getElementById('btn-nx').classList.add('show');
+}
+
+function showTip(lbl,txt){
+  document.getElementById('tipl').textContent=lbl;document.getElementById('tipt').textContent=txt;
+  document.getElementById('tipb').classList.add('show');
+  setTimeout(function(){var el=document.getElementById('tipb');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},200);
+}
+
+function nxt(){
+  if(transitioning)return;transitioning=true;clearInterval(tmr);idx++;
+  if(idx>=TOTAL){showResults();return;}
+  var qc=document.getElementById('qc');if(qc)qc.classList.add('out');
+  setTimeout(function(){renderQ();},160);
+}
+
+function showResults(){
+  clearInterval(tmr);sw('screen-results');
+  var ok=ans.filter(function(a){return a.ok;}).length;
+  var to=ans.filter(function(a){return a.to;}).length;
+  var err=TOTAL-ok;
+  var pct=Math.round(ok*2.5);
+  var temas={};
+  QS.forEach(function(q){
+    if(!temas[q.tm])temas[q.tm]={tot:0,ok:0};temas[q.tm].tot++;
+    var a=ans.find(function(a){return a.q===q.n;});if(a&&a.ok)temas[q.tm].ok++;
+  });
+  var record={fecha:new Date().toLocaleString('es-PE'),nombre:stu.n,apellido:stu.a,area:stu.area,puntaje:pct,correctas:ok,incorrectas:err-to,sinTiempo:to,total:TOTAL};
+  sendToSheets(record);showToast();
+
+  var rank=getRank(pct);
+  document.getElementById('r-st').innerHTML='<strong>'+stu.n+' '+stu.a+'</strong> · '+stu.area;
+  var sc=document.getElementById('r-score');sc.textContent=pct;sc.className='big-score '+rank.scoreCls;
+  document.getElementById('r-pct').textContent=ok+' de '+TOTAL+' correctas · 2.5 pts c/u';
+  var bar=document.getElementById('r-bar');bar.style.background=rank.barColor;
+  setTimeout(function(){bar.style.width=pct+'%';},300);
+
+  var msgs=[
+    [95,stu.n+', llegaste al nivel más alto. Eso no pasa por suerte, pasa porque te preparaste de verdad. Ya estás listo para el ingreso a UNSA.'],
+    [85,stu.n+', tus bases son muy sólidas. Se nota el trabajo que pusiste. Un repaso más a los temas flojos y el ingreso es tuyo.'],
+    [70,stu.n+', estás por encima del promedio, eso ya dice mucho. Mira qué temas fallaste, trabaja eso puntual y vas a subir bastante.'],
+    [50,stu.n+', vas avanzando y eso se nota. Cada vez que practicas estás cerrando la brecha. Sigue así, los resultados van a llegar.'],
+    [30,stu.n+', todavía hay camino por recorrer pero estás en movimiento. Enfócate en los temas con menos aciertos y vuelve pronto.'],
+    [0, stu.n+', este es solo tu primer intento. No te desanimes, todos empezamos desde cero. Estudia un poco cada día y regresa, vas a sorprenderte.']
+  ];
+  document.getElementById('r-msg').textContent=msgs.find(function(m){return pct>=m[0];})[1];
+  document.getElementById('r-ok').textContent=ok;
+  document.getElementById('r-err').textContent=err-to;
+  document.getElementById('r-to').textContent=to;
+
+  var temasArr=Object.entries(temas).map(function(e){return{tm:e[0],ok:e[1].ok,tot:e[1].tot,pct:e[1].tot?Math.round((e[1].ok/e[1].tot)*100):0};});
+  temasArr.sort(function(a,b){return b.pct-a.pct;});
+  var best=temasArr[0],worst=temasArr[temasArr.length-1];
+  var hlEl=document.getElementById('r-highlights');
+  if(hlEl&&best&&worst){
+    hlEl.innerHTML='<div class="r-hl-box"><div class="r-hl-tag up">↑ PUNTO FUERTE</div><div class="r-hl-lbl">Mejor tema</div><div class="r-hl-tema">'+best.tm+'</div><div class="r-hl-score">'+best.ok+'/'+best.tot+' — '+best.pct+'%</div></div><div class="r-hl-box"><div class="r-hl-tag dn">↓ A MEJORAR</div><div class="r-hl-lbl">Tema difícil</div><div class="r-hl-tema">'+worst.tm+'</div><div class="r-hl-score">'+worst.ok+'/'+worst.tot+' — '+worst.pct+'%</div></div>';
+  }
+
+  var bkHtml='';
+  Object.entries(temas).forEach(function(entry){
+    var tm=entry[0],d=entry[1];
+    var p=d.tot?Math.round((d.ok/d.tot)*100):0;
+    var col=p>=85?'#8FBF9F':p>=70?'#C8A448':p>=50?'#9A7AB8':p>=30?'#7A9AAA':'#8A3A4A';
+    var frac=d.ok+' de '+d.tot; bkHtml+='<div class="bd-row"><span class="bd-lbl">'+tm+'</span><div class="bd-track"><div class="bd-bar" style="width:0%;background:'+col+'" data-w="'+p+'"></div></div><span class="bd-sc" style="color:'+col+'">'+frac+'</span></div>';
+  });
+  document.getElementById('r-bk').innerHTML=bkHtml;
+  setTimeout(function(){document.querySelectorAll('.bd-bar').forEach(function(b){b.style.transition='width 1s cubic-bezier(.16,1,.3,1)';b.style.width=b.dataset.w+'%';});},300);
+}
+
+function retry(){
+  clearInterval(tmr);idx=0;ans=[];transitioning=false;stu={n:'',a:'',area:''};
+  sw('screen-register');document.getElementById('inp-n').value='';document.getElementById('inp-a').value='';
+  document.querySelectorAll('.area-card').forEach(function(c){c.classList.remove('selected');});
+  pickedArea='';document.getElementById('btn-start').classList.remove('ready');
+}
+
+function showToast(){var t=document.getElementById('toast');if(t){t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}}
+
+function sendToSheets(record){
+  var el=document.getElementById('sheets-status');if(!el)return;
+  el.style.display='block';el.className='sheets-status sheets-saving';el.textContent='⏳ Guardando resultado...';
+  var rank=getRank(record.puntaje);
+  var url=APPS_SCRIPT_URL+'?fecha='+encodeURIComponent(record.fecha)+'&nombre='+encodeURIComponent(record.nombre)+'&apellido='+encodeURIComponent(record.apellido)+'&area='+encodeURIComponent(record.area)+'&puntaje='+encodeURIComponent(record.puntaje)+'&correctas='+encodeURIComponent(record.correctas)+'&incorrectas='+encodeURIComponent(record.incorrectas)+'&sinTiempo='+encodeURIComponent(record.sinTiempo)+'&total='+encodeURIComponent(record.total)+'&nivel='+encodeURIComponent(rank.label)+'&colorFila='+encodeURIComponent(rank.sheetColor)+'&ordenar=true';
+  fetch(url,{method:'GET',mode:'no-cors'})
+    .then(function(){el.className='sheets-status sheets-ok';el.textContent='✓ Resultado guardado en Google Sheets';})
+    .catch(function(){el.className='sheets-status sheets-err';el.textContent='✗ Error al guardar. Verifica la conexión.';});
+}
+</script>
+</body>
+</html>
+```
