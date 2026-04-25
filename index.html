@@ -1,8 +1,3 @@
-¡Disculpa! Parece que el elemento desplegable donde oculté el código para que no ocupara mucho espacio no funcionó bien en tu pantalla. 
-
-Aquí tienes el código completo directamente. Solo tienes que copiar y pegar todo esto en tu archivo `simulacro_rm.html`:
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -273,10 +268,10 @@ html,body{width:100%;background:var(--obsidian);color:var(--cream);font-family:'
 .q-anim.out{animation:slideOut .16s ease forwards;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .rank-hero{animation:fadeIn .5s ease .1s both;}
-.ac-icon-photo{position:relative;flex-shrink:0;width:15vw;height:15vw;padding:2px;border-radius:50%;background:linear-gradient(135deg,#F8ECA8,#C8A448,#7A5618,#C8A448,#F8ECA8);}
-.area-photo{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center top;display:block;filter:brightness(0.95) contrast(1.05);border:2px solid #07070A;}
-.area-photo-ring{display:none;}
-.area-card:hover .area-photo{filter:brightness(1.05) contrast(1.05);}
+
+/* Tip box math rendering */
+.tip-box .katex { font-size: 1em !important; }
+.tip-box .katex-display { margin: 0.5em 0; }
 </style>
 </head>
 <body>
@@ -294,8 +289,8 @@ html,body{width:100%;background:var(--obsidian);color:var(--cream);font-family:'
   </div>
   <div class="reg-form">
     <div class="field-row">
-      <div class="field"><label>Nombre</label><input id="inp-n" type="text" placeholder="Ing. David" autocomplete="given-name" oninput="chk()"></div>
-      <div class="field"><label>Apellido</label><input id="inp-a" type="text" placeholder="Samuel" autocomplete="family-name" oninput="chk()"></div>
+      <div class="field"><label>Nombre</label><input id="inp-n" type="text" placeholder="Nombre" autocomplete="given-name" oninput="chk()"></div>
+      <div class="field"><label>Apellido</label><input id="inp-a" type="text" placeholder="Apellido" autocomplete="family-name" oninput="chk()"></div>
     </div>
     <div class="area-section-title">Área de postulación</div>
     <div class="areas-list">
@@ -383,52 +378,270 @@ var RANKS=[
 ];
 function getRank(p){return RANKS.find(function(r){return p>=r.min&&p<=r.max;})||RANKS[RANKS.length-1];}
 
+// KaTeX render helper — works on any DOM element, waits for library to load
 function renderMath(el){
-  function d(){if(typeof renderMathInElement==='undefined'){setTimeout(d,200);return;}
-  try{renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false,errorColor:'#ef4444',strict:false});}catch(e){}}d();
+  function attempt(){
+    if(typeof renderMathInElement==='undefined'){setTimeout(attempt,150);return;}
+    try{
+      renderMathInElement(el,{
+        delimiters:[
+          {left:'$$',right:'$$',display:true},
+          {left:'$',right:'$',display:false}
+        ],
+        throwOnError:false,
+        errorColor:'#ef4444',
+        strict:false
+      });
+    }catch(e){console.warn('KaTeX error:',e);}
+  }
+  attempt();
 }
 
+// ─── BANK OF 40 QUESTIONS ───────────────────────────────────────────────────
+// All tips use innerHTML so KaTeX delimiters ($…$) render correctly.
 var QS=[
-  {n:1,t:"T",tm:"Planteo de Ecuaciones",p:"¿Qué representa en lenguaje matemático la frase: 'un número excede a otro en 5'?",o:["$x + y = 5$","$x - y = 5$","$x = 5y$","$\\frac{x}{y} = 5$"],a:1,tip:"'Exceder' significa que la diferencia entre el mayor y el menor es esa cantidad. Se plantea con una resta: $x - y = 5$."},
-  {n:2,t:"B",tm:"Planteo de Ecuaciones",p:"El doble de un número, aumentado en 5 es igual a 17. ¿Cuál es el número?",o:["$4$","$5$","$6$","$8$"],a:2,tip:"Ecuación: $2x + 5 = 17 \\rightarrow 2x = 12 \\rightarrow x = 6$."},
-  {n:3,t:"B",tm:"Planteo de Ecuaciones",p:"Si a la tercera parte de mi edad le sumo 10, obtengo 15. ¿Qué edad tengo?",o:["$10$","$15$","$20$","$25$"],a:1,tip:"Ecuación: $\\frac{x}{3} + 10 = 15 \\rightarrow \\frac{x}{3} = 5 \\rightarrow x = 15$."},
-  {n:4,t:"I",tm:"Planteo de Ecuaciones",p:"La suma de tres números consecutivos es 45. ¿Cuál es el número mayor?",o:["$13$","$14$","$15$","$16$"],a:3,tip:"Números: $x$, $(x+1)$, $(x+2)$. Suma: $3x + 3 = 45 \\rightarrow 3x = 42 \\rightarrow x = 14$. Mayor: $16$."},
-  {n:5,t:"B",tm:"Planteo de Ecuaciones",p:"Si el cuadrado de un número positivo disminuye en 4, se obtiene 32. ¿Cuál es el número?",o:["$4$","$5$","$6$","$8$"],a:2,tip:"Ecuación: $x^2 - 4 = 32 \\rightarrow x^2 = 36$. Como es positivo, $x = 6$."},
-  {n:6,t:"I",tm:"Planteo de Ecuaciones",p:"Ana tiene el doble de dinero que Beto. Si Ana le da S/ 20 a Beto, ambos tendrían igual suma. ¿Cuánto tienen entre los dos?",o:["S/ 80","S/ 100","S/ 120","S/ 160"],a:2,tip:"Ana = $2x$, Beto = $x$. Ecuación: $2x - 20 = x + 20 \\rightarrow x = 40$. Ana tiene $80$ y Beto $40$. Total = $120$."},
-  {n:7,t:"B",tm:"Planteo de Ecuaciones",p:"El cuádruple de la suma de un número con 3 es 28. Hallar el número.",o:["$2$","$3$","$4$","$5$"],a:2,tip:"Ecuación: $4(x + 3) = 28 \\rightarrow x + 3 = 7 \\rightarrow x = 4$."},
-  {n:8,t:"I",tm:"Planteo de Ecuaciones",p:"Dos números suman 40 y su diferencia es 12. ¿Cuál es el número menor?",o:["$10$","$12$","$14$","$16$"],a:2,tip:"Suma $a+b=40$, diferencia $a-b=12$. Restando asumiendo $a$ mayor: $2b = 28 \\rightarrow b = 14$ (menor)."},
-  {n:9,t:"B",tm:"Planteo de Ecuaciones",p:"La mitad del triple de un número equivale a 12. ¿Cuál es el número?",o:["$6$","$8$","$10$","$12$"],a:1,tip:"Ecuación: $\\frac{3x}{2} = 12 \\rightarrow 3x = 24 \\rightarrow x = 8$."},
-  {n:10,t:"I",tm:"Planteo de Ecuaciones",p:"Las edades de un padre y su hijo suman 50. Si el padre tiene 30 años más que el hijo, ¿cuántos años tiene el hijo?",o:["$5$","$10$","$15$","$20$"],a:1,tip:"$P + H = 50$. Como $P = H + 30$, reemplazamos: $(H+30) + H = 50 \\rightarrow 2H = 20 \\rightarrow H = 10$."},
-  {n:11,t:"T",tm:"Planteo de Ecuaciones",p:"Traduce al lenguaje matemático: 'El cuadrado de la suma de dos números'",o:["$a^2 + b^2$","$a + b^2$","$(a+b)^2$","$2(a+b)$"],a:2,tip:"El término 'cuadrado' afecta a toda la suma, por lo que se usan paréntesis: $(a+b)^2$."},
-  {n:12,t:"B",tm:"Planteo de Ecuaciones",p:"¿Qué número sumado con su mitad resulta 30?",o:["$10$","$15$","$20$","$25$"],a:2,tip:"Ecuación: $x + \\frac{x}{2} = 30 \\rightarrow \\frac{3x}{2} = 30 \\rightarrow x = 20$."},
-  {n:13,t:"I",tm:"Planteo de Ecuaciones",p:"Si compré 4 libros y me sobraron S/ 10, pero si compro 6 me faltarían S/ 20. ¿Cuánto dinero tenía?",o:["S/ 40","S/ 55","S/ 70","S/ 85"],a:2,tip:"Sea $p$ el precio del libro. Dinero = $4p + 10 = 6p - 20 \\rightarrow 2p = 30 \\rightarrow p = 15$. Dinero = $4(15) + 10 = 70$."},
-  {n:14,t:"I",tm:"Planteo de Ecuaciones",p:"El exceso de un número sobre 15 es igual al exceso de 45 sobre el dicho número. Hallar el número.",o:["$20$","$25$","$30$","$35$"],a:2,tip:"Ecuación: $x - 15 = 45 - x \\rightarrow 2x = 60 \\rightarrow x = 30$."},
-  {n:15,t:"T",tm:"Fracciones",p:"¿Qué caracteriza a una fracción propia?",o:["El numerador es mayor que el denominador","El numerador y el denominador son iguales","El numerador es menor que el denominador","Es un número entero"],a:2,tip:"Fracción propia: Numerador $<$ Denominador. Su valor siempre es menor a $1$ (ejemplo: $\\frac{3}{5}$)." },
-  {n:16,t:"B",tm:"Fracciones",p:"¿Cuánto es los $\\frac{2}{3}$ de $60$?",o:["$20$","$30$","$40$","$50$"],a:2,tip:"La palabra 'de' significa multiplicación: $\\frac{2}{3} \\times 60 = \\frac{120}{3} = 40$."},
-  {n:17,t:"B",tm:"Fracciones",p:"Simplifica la fracción $\\frac{48}{64}$",o:["$\\frac{2}{3}$","$\\frac{3}{4}$","$\\frac{4}{5}$","$\\frac{5}{6}$"],a:1,tip:"Dividiendo el numerador y denominador entre el mayor divisor común ($16$): $\\frac{48 \\div 16}{64 \\div 16} = \\frac{3}{4}$."},
-  {n:18,t:"I",tm:"Fracciones",p:"Gasté los $\\frac{3}{5}$ de mi dinero. ¿Qué fracción de lo que tenía me queda?",o:["$\\frac{1}{5}$","$\\frac{2}{5}$","$\\frac{3}{5}$","$\\frac{4}{5}$"],a:1,tip:"El total completo es la unidad ($1$ ó $\\frac{5}{5}$). Si gastas $\\frac{3}{5}$, te queda la diferencia: $1 - \\frac{3}{5} = \\frac{2}{5}$."},
-  {n:19,t:"I",tm:"Fracciones",p:"Si los $\\frac{3}{4}$ de la edad de Luis equivalen a 24 años, ¿cuál es su edad?",o:["$20$","$24$","$28$","$32$"],a:3,tip:"Ecuación: $\\frac{3}{4}x = 24 \\rightarrow 3x = 96 \\rightarrow x = 32$."},
-  {n:20,t:"I",tm:"Fracciones",p:"A un obrero le falta cavar los $\\frac{2}{7}$ de una zanja. Si ya avanzó 15 metros, ¿cuántos metros tiene la zanja?",o:["$21$ m","$24$ m","$28$ m","$35$ m"],a:0,tip:"Si le falta $\\frac{2}{7}$, entonces ya avanzó $\\frac{5}{7}$ del total. Ecuación: $\\frac{5}{7}L = 15 \\rightarrow L = \\frac{15 \\times 7}{5} = 21$ m."},
-  {n:21,t:"B",tm:"Fracciones",p:"¿Qué fracción de una hora representan 15 minutos?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"$1$ hora = $60$ min. La fracción es Parte / Todo = $\\frac{15}{60}$, simplificando queda $\\frac{1}{4}$."},
-  {n:22,t:"I",tm:"Fracciones",p:"Juan puede pintar un cuarto en 4 horas y Pedro en 6 horas. ¿Qué tiempo demorarían trabajando juntos? (Aprox)",o:["$2$ h","$2.4$ h","$4$ h","$5$ h"],a:1,tip:"Tasas: $\\frac{1}{4} + \\frac{1}{6} = \\frac{3+2}{12} = \\frac{5}{12}$. Invirtiendo, el tiempo es $\\frac{12}{5} = 2.4$ horas."},
-  {n:23,t:"B",tm:"Fracciones",p:"¿Qué parte de 80 es 20?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"Relación Es / De = $\\frac{20}{80}$, simplificando da $\\frac{1}{4}$."},
-  {n:24,t:"I",tm:"Fracciones",p:"Un caño llena un tanque en 3 horas y otro lo hace en 6 horas. Juntos, ¿en qué tiempo lo llenarán?",o:["$1$ h","$2$ h","$4$ h","$9$ h"],a:1,tip:"En 1 hora avanzan $\\frac{1}{3} + \\frac{1}{6} = \\frac{3}{6} = \\frac{1}{2}$. Por ende, se llenará todo en $2$ horas."},
-  {n:25,t:"I",tm:"Fracciones",p:"Al simplificar una fracción se obtiene $\\frac{2}{3}$. Si la suma de sus términos originales es 25, ¿cuál fue la fracción original?",o:["$\\frac{6}{9}$","$\\frac{8}{12}$","$\\frac{10}{15}$","$\\frac{12}{18}$"],a:2,tip:"Sea la fracción $\\frac{2k}{3k}$. Suma: $2k + 3k = 25 \\rightarrow 5k = 25 \\rightarrow k = 5$. La fracción es $\\frac{2(5)}{3(5)} = \\frac{10}{15}$."},
-  {n:26,t:"I",tm:"Fracciones",p:"Un estudiante resolvió los $\\frac{3}{8}$ de su tarea y aún le faltan 25 problemas. ¿Cuántos problemas eran en total?",o:["$30$","$35$","$40$","$45$"],a:2,tip:"Falta resolver: $1 - \\frac{3}{8} = \\frac{5}{8}$. Ecuación: $\\frac{5}{8}x = 25 \\rightarrow x = \\frac{25 \\times 8}{5} = 40$."},
-  {n:27,t:"I",tm:"Fracciones",p:"Si gasto la mitad de mi dinero, y luego la mitad del resto, ¿qué fracción del total me queda?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{8}$"],a:2,tip:"Me quedó $\\frac{1}{2}$. Luego gasto su mitad ($\\frac{1}{2}$ de $\\frac{1}{2}$), entonces mi restante es $\\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$."},
-  {n:28,t:"T",tm:"Porcentajes",p:"¿A qué fracción irreducible equivale el $25\\%$?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"El símbolo $\\%$ equivale a dividir entre 100. $25\\% = \\frac{25}{100}$. Simplificando entre $25$, queda $\\frac{1}{4}$."},
-  {n:29,t:"B",tm:"Porcentajes",p:"¿Cuánto es el $40\\%$ de $200$?",o:["$40$","$60$","$80$","$100$"],a:2,tip:"Cálculo: $\\frac{40}{100} \\times 200 = 80$. Truco: anula dos ceros y multiplica $40 \\times 2 = 80$."},
-  {n:30,t:"B",tm:"Porcentajes",p:"¿Qué porcentaje de 50 es 15?",o:["$15\\%$","$20\\%$","$25\\%$","$30\\%$"],a:3,tip:"Fórmula $\\frac{\\text{Es}}{\\text{De}} \\times 100\\%$. Luego $\\frac{15}{50} \\times 100\\% = 15 \\times 2\\% = 30\\%$."},
-  {n:31,t:"I",tm:"Porcentajes",p:"El $20\\%$ del $30\\%$ de cierta cantidad es 60. Hallar la cantidad.",o:["$500$","$1000$","$2000$","$3000$"],a:1,tip:"Ecuación: $\\frac{20}{100} \\times \\frac{30}{100} \\times N = 60 \\rightarrow \\frac{6}{100} \\times N = 60 \\rightarrow N = \\frac{6000}{6} = 1000$."},
-  {n:32,t:"B",tm:"Porcentajes",p:"En un salón hay 40 alumnos. Si el $60\\%$ son mujeres, ¿cuántos varones hay?",o:["$16$","$20$","$24$","$28$"],a:0,tip:"Si el $60\\%$ son mujeres, entonces $100\\% - 60\\% = 40\\%$ son varones. El $40\\%$ de $40$ es $16$."},
-  {n:33,t:"I",tm:"Porcentajes",p:"Si el lado de un cuadrado aumenta en un $10\\%$, ¿en qué porcentaje aumentará su área?",o:["$10\\%$","$20\\%$","$21\\%$","$100\\%$"],a:2,tip:"Si el lado inicial es $10$, el área es $100$. Aumenta a $11$, nueva área $121$. Aumento = $21\\%$."},
-  {n:34,t:"I",tm:"Porcentajes",p:"A un artículo de S/ 100 se le hacen dos descuentos sucesivos del $20\\%$ y $10\\%$. ¿Cuál es el precio final?",o:["S/ 70","S/ 72","S/ 80","S/ 90"],a:1,tip:"Descuento 1: de $100$ pasa a $80$. Descuento 2 de $10\\%$ sobre $80$: se restan $8$. Queda $80 - 8 = 72$."},
-  {n:35,t:"I",tm:"Porcentajes",p:"Se vende un televisor en S/ 1 200 ganando el $20\\%$ del costo. ¿Cuál fue el precio de costo?",o:["S/ 800","S/ 900","S/ 1000","S/ 1100"],a:2,tip:"$\\text{Venta} = \\text{Costo} + \\text{Ganancia}$. Entonces $1200 = 100\\% C + 20\\% C = 120\\% C$. Por tanto, $C = \\frac{1200}{1.2} = 1000$."},
-  {n:36,t:"B",tm:"Porcentajes",p:"¿Cuánto es $30\\%$ más de $200$?",o:["$230$","$240$","$260$","$300$"],a:2,tip:"Aumentar $30\\%$ equivale a calcular el $130\\%$. Entonces $130\\%$ de $200 = 260$."},
-  {n:37,t:"I",tm:"Porcentajes",p:"En una rebaja del $30\\%$, pagué S/ 140 por una casaca. ¿Cuál era el precio original?",o:["S/ 170","S/ 180","S/ 200","S/ 210"],a:2,tip:"Como hubo rebaja del $30\\%$, sólo pagamos el $70\\%$. Ecuación: $70\\% P = 140 \\rightarrow \\frac{70P}{100} = 140 \\rightarrow P = 200$."},
-  {n:38,t:"T",tm:"Porcentajes",p:"El '10 por 40' equivale en porcentaje a un:",o:["$10\\%$","$25\\%$","$40\\%$","$100\\%$"],a:1,tip:"El '10 por 40' representa la relación $\\frac{10}{40} = \\frac{1}{4}$. En porcentaje se multiplica por $100\\%$, resultando en $25\\%$."},
-  {n:39,t:"B",tm:"Porcentajes",p:"Si a 50 se le aumenta el $20\\%$, el resultado es:",o:["$60$","$70$","$80$","$90$"],a:0,tip:"El $20\\%$ de $50$ es $\\frac{20 \\times 50}{100} = 10$. Sumando el aumento: $50 + 10 = 60$."},
-  {n:40,t:"I",tm:"Porcentajes",p:"Si mi sueldo aumenta de S/ 400 a S/ 500, ¿en qué porcentaje aumentó?",o:["$20\\%$","$25\\%$","$30\\%$","$100\\%$"],a:1,tip:"La variación fue de $500 - 400 = 100$. La fracción de aumento es $\\frac{100}{400} = \\frac{1}{4} = 25\\%$."}
+  // ── PLANTEO DE ECUACIONES ──────────────────────────────────────────────
+  {n:1,t:"T",tm:"Planteo de Ecuaciones",
+   p:"¿Qué representa en lenguaje matemático la frase: 'un número excede a otro en 5'?",
+   o:["$x + y = 5$","$x - y = 5$","$x = 5y$","$\\dfrac{x}{y} = 5$"],
+   a:1,
+   tip:"'Exceder' indica diferencia: el mayor menos el menor igual a esa cantidad. Se escribe como $x - y = 5$."},
+
+  {n:2,t:"B",tm:"Planteo de Ecuaciones",
+   p:"El doble de un número, aumentado en 5 es igual a 17. ¿Cuál es el número?",
+   o:["$4$","$5$","$6$","$8$"],
+   a:2,
+   tip:"Planteamos: $2x + 5 = 17 \\Rightarrow 2x = 12 \\Rightarrow x = 6$."},
+
+  {n:3,t:"B",tm:"Planteo de Ecuaciones",
+   p:"Si a la tercera parte de mi edad le sumo 10, obtengo 15. ¿Qué edad tengo?",
+   o:["$10$","$15$","$20$","$25$"],
+   a:1,
+   tip:"Ecuación: $\\dfrac{x}{3} + 10 = 15 \\Rightarrow \\dfrac{x}{3} = 5 \\Rightarrow x = 15$."},
+
+  {n:4,t:"I",tm:"Planteo de Ecuaciones",
+   p:"La suma de tres números consecutivos es 45. ¿Cuál es el número mayor?",
+   o:["$13$","$14$","$15$","$16$"],
+   a:3,
+   tip:"Sean $x$, $(x+1)$ y $(x+2)$. Entonces $3x + 3 = 45 \\Rightarrow x = 14$. El mayor es $x+2 = 16$."},
+
+  {n:5,t:"B",tm:"Planteo de Ecuaciones",
+   p:"Si el cuadrado de un número positivo disminuye en 4, se obtiene 32. ¿Cuál es el número?",
+   o:["$4$","$5$","$6$","$8$"],
+   a:2,
+   tip:"$x^2 - 4 = 32 \\Rightarrow x^2 = 36$. Como el número es positivo, $x = 6$."},
+
+  {n:6,t:"I",tm:"Planteo de Ecuaciones",
+   p:"Ana tiene el doble de dinero que Beto. Si Ana le da S/ 20 a Beto, ambos tendrían la misma cantidad. ¿Cuánto tienen entre los dos?",
+   o:["S/ 80","S/ 100","S/ 120","S/ 160"],
+   a:2,
+   tip:"Sea Beto $= x$, entonces Ana $= 2x$. Si Ana da S/ 20: $2x - 20 = x + 20 \\Rightarrow x = 40$. Total $= 40 + 80 = 120$."},
+
+  {n:7,t:"B",tm:"Planteo de Ecuaciones",
+   p:"El cuádruple de la suma de un número con 3 es 28. Hallar el número.",
+   o:["$2$","$3$","$4$","$5$"],
+   a:2,
+   tip:"$4(x + 3) = 28 \\Rightarrow x + 3 = 7 \\Rightarrow x = 4$."},
+
+  {n:8,t:"I",tm:"Planteo de Ecuaciones",
+   p:"Dos números suman 40 y su diferencia es 12. ¿Cuál es el número menor?",
+   o:["$10$","$12$","$14$","$16$"],
+   a:2,
+   tip:"Sistema: $a+b=40$ y $a-b=12$. Sumando: $2a=52 \\Rightarrow a=26$ (mayor). Entonces $b = 40-26 = 14$ (menor)."},
+
+  {n:9,t:"B",tm:"Planteo de Ecuaciones",
+   p:"La mitad del triple de un número equivale a 12. ¿Cuál es el número?",
+   o:["$6$","$8$","$10$","$12$"],
+   a:1,
+   tip:"$\\dfrac{3x}{2} = 12 \\Rightarrow 3x = 24 \\Rightarrow x = 8$."},
+
+  {n:10,t:"I",tm:"Planteo de Ecuaciones",
+   p:"Las edades de un padre y su hijo suman 50. Si el padre tiene 30 años más que el hijo, ¿cuántos años tiene el hijo?",
+   o:["$5$","$10$","$15$","$20$"],
+   a:1,
+   tip:"Sea el hijo $= h$. Entonces $P = h + 30$. Sumando: $(h+30)+h = 50 \\Rightarrow 2h = 20 \\Rightarrow h = 10$."},
+
+  {n:11,t:"T",tm:"Planteo de Ecuaciones",
+   p:"Traduce al lenguaje matemático: 'El cuadrado de la suma de dos números'",
+   o:["$a^2 + b^2$","$a + b^2$","$(a+b)^2$","$2(a+b)$"],
+   a:2,
+   tip:"El término 'cuadrado' afecta a toda la suma como unidad, por lo que se escribe $(a+b)^2$. Distinto a $a^2+b^2$."},
+
+  {n:12,t:"B",tm:"Planteo de Ecuaciones",
+   p:"¿Qué número sumado con su mitad resulta 30?",
+   o:["$10$","$15$","$20$","$25$"],
+   a:2,
+   tip:"$x + \\dfrac{x}{2} = 30 \\Rightarrow \\dfrac{3x}{2} = 30 \\Rightarrow x = 20$."},
+
+  {n:13,t:"I",tm:"Planteo de Ecuaciones",
+   p:"Si compré 4 libros y me sobraron S/ 10, pero si compro 6 me faltarían S/ 20. ¿Cuánto dinero tenía?",
+   o:["S/ 40","S/ 55","S/ 70","S/ 85"],
+   a:2,
+   tip:"Sea $p$ = precio de un libro. Dinero: $4p + 10 = 6p - 20 \\Rightarrow 2p = 30 \\Rightarrow p = 15$. Dinero $= 4(15) + 10 = 70$."},
+
+  {n:14,t:"I",tm:"Planteo de Ecuaciones",
+   p:"El exceso de un número sobre 15 es igual al exceso de 45 sobre dicho número. Hallar el número.",
+   o:["$20$","$25$","$30$","$35$"],
+   a:2,
+   tip:"$x - 15 = 45 - x \\Rightarrow 2x = 60 \\Rightarrow x = 30$."},
+
+  // ── FRACCIONES ─────────────────────────────────────────────────────────
+  {n:15,t:"T",tm:"Fracciones",
+   p:"¿Qué caracteriza a una fracción propia?",
+   o:["El numerador es mayor que el denominador","El numerador y el denominador son iguales","El numerador es menor que el denominador","Es un número entero"],
+   a:2,
+   tip:"Fracción propia: Numerador $<$ Denominador. Su valor siempre es menor que $1$. Ejemplo: $\\dfrac{3}{5}$."},
+
+  {n:16,t:"B",tm:"Fracciones",
+   p:"¿Cuánto es $\\dfrac{2}{3}$ de $60$?",
+   o:["$20$","$30$","$40$","$50$"],
+   a:2,
+   tip:"La palabra 'de' significa multiplicación: $\\dfrac{2}{3} \\times 60 = \\dfrac{120}{3} = 40$."},
+
+  {n:17,t:"B",tm:"Fracciones",
+   p:"Simplifica la fracción $\\dfrac{48}{64}$",
+   o:["$\\dfrac{2}{3}$","$\\dfrac{3}{4}$","$\\dfrac{4}{5}$","$\\dfrac{5}{6}$"],
+   a:1,
+   tip:"El MCD de 48 y 64 es 16. Dividiendo: $\\dfrac{48 \\div 16}{64 \\div 16} = \\dfrac{3}{4}$."},
+
+  {n:18,t:"I",tm:"Fracciones",
+   p:"Gasté los $\\dfrac{3}{5}$ de mi dinero. ¿Qué fracción del total me queda?",
+   o:["$\\dfrac{1}{5}$","$\\dfrac{2}{5}$","$\\dfrac{3}{5}$","$\\dfrac{4}{5}$"],
+   a:1,
+   tip:"El total es $1 = \\dfrac{5}{5}$. Si gasté $\\dfrac{3}{5}$, me queda $1 - \\dfrac{3}{5} = \\dfrac{2}{5}$."},
+
+  {n:19,t:"I",tm:"Fracciones",
+   p:"Si los $\\dfrac{3}{4}$ de la edad de Luis equivalen a 24 años, ¿cuál es su edad?",
+   o:["$20$","$24$","$28$","$32$"],
+   a:3,
+   tip:"$\\dfrac{3}{4}\\,x = 24 \\Rightarrow 3x = 96 \\Rightarrow x = 32$."},
+
+  {n:20,t:"I",tm:"Fracciones",
+   p:"A un obrero le falta cavar los $\\dfrac{2}{7}$ de una zanja. Si ya avanzó 15 metros, ¿cuántos metros tiene la zanja en total?",
+   o:["$21$ m","$24$ m","$28$ m","$35$ m"],
+   a:0,
+   tip:"Si le falta $\\dfrac{2}{7}$, ya avanzó $\\dfrac{5}{7}$ del total. Entonces $\\dfrac{5}{7}L = 15 \\Rightarrow L = \\dfrac{15 \\times 7}{5} = 21$ m."},
+
+  {n:21,t:"B",tm:"Fracciones",
+   p:"¿Qué fracción de una hora representan 15 minutos?",
+   o:["$\\dfrac{1}{2}$","$\\dfrac{1}{3}$","$\\dfrac{1}{4}$","$\\dfrac{1}{5}$"],
+   a:2,
+   tip:"Una hora tiene 60 minutos. La fracción es $\\dfrac{15}{60} = \\dfrac{1}{4}$."},
+
+  {n:22,t:"I",tm:"Fracciones",
+   p:"Juan puede pintar un cuarto en 4 horas y Pedro en 6 horas. ¿Cuánto tiempo demorarían trabajando juntos?",
+   o:["$2$ h","$2.4$ h","$4$ h","$5$ h"],
+   a:1,
+   tip:"Tasa conjunta por hora: $\\dfrac{1}{4} + \\dfrac{1}{6} = \\dfrac{3+2}{12} = \\dfrac{5}{12}$. Tiempo total $= \\dfrac{12}{5} = 2.4$ horas."},
+
+  {n:23,t:"B",tm:"Fracciones",
+   p:"¿Qué parte de 80 es 20?",
+   o:["$\\dfrac{1}{2}$","$\\dfrac{1}{3}$","$\\dfrac{1}{4}$","$\\dfrac{1}{5}$"],
+   a:2,
+   tip:"Relación parte/todo: $\\dfrac{20}{80} = \\dfrac{1}{4}$."},
+
+  {n:24,t:"I",tm:"Fracciones",
+   p:"Un caño llena un tanque en 3 horas y otro en 6 horas. Juntos, ¿en qué tiempo lo llenarán?",
+   o:["$1$ h","$2$ h","$4$ h","$9$ h"],
+   a:1,
+   tip:"En 1 hora avanzan $\\dfrac{1}{3} + \\dfrac{1}{6} = \\dfrac{2+1}{6} = \\dfrac{1}{2}$ del tanque. Luego se llena en $2$ horas."},
+
+  {n:25,t:"I",tm:"Fracciones",
+   p:"Al simplificar una fracción se obtiene $\\dfrac{2}{3}$. Si la suma de sus términos originales es 25, ¿cuál fue la fracción original?",
+   o:["$\\dfrac{6}{9}$","$\\dfrac{8}{12}$","$\\dfrac{10}{15}$","$\\dfrac{12}{18}$"],
+   a:2,
+   tip:"Sea la fracción $\\dfrac{2k}{3k}$. Entonces $2k + 3k = 25 \\Rightarrow k = 5$. La fracción es $\\dfrac{10}{15}$."},
+
+  {n:26,t:"I",tm:"Fracciones",
+   p:"Un estudiante resolvió los $\\dfrac{3}{8}$ de su tarea y aún le faltan 25 problemas. ¿Cuántos problemas había en total?",
+   o:["$30$","$35$","$40$","$45$"],
+   a:2,
+   tip:"Le falta: $1 - \\dfrac{3}{8} = \\dfrac{5}{8}$. Ecuación: $\\dfrac{5}{8}\\,x = 25 \\Rightarrow x = \\dfrac{25 \\times 8}{5} = 40$."},
+
+  {n:27,t:"I",tm:"Fracciones",
+   p:"Si gasto la mitad de mi dinero, y luego la mitad del resto, ¿qué fracción del total me queda?",
+   o:["$\\dfrac{1}{2}$","$\\dfrac{1}{3}$","$\\dfrac{1}{4}$","$\\dfrac{1}{8}$"],
+   a:2,
+   tip:"Tras el primer gasto me queda $\\dfrac{1}{2}$. Gasto la mitad de eso: $\\dfrac{1}{2} \\times \\dfrac{1}{2} = \\dfrac{1}{4}$ del total."},
+
+  // ── PORCENTAJES ────────────────────────────────────────────────────────
+  {n:28,t:"T",tm:"Porcentajes",
+   p:"¿A qué fracción irreducible equivale el $25\\%$?",
+   o:["$\\dfrac{1}{2}$","$\\dfrac{1}{3}$","$\\dfrac{1}{4}$","$\\dfrac{1}{5}$"],
+   a:2,
+   tip:"$25\\% = \\dfrac{25}{100}$. Dividiendo numerador y denominador entre 25: $\\dfrac{1}{4}$."},
+
+  {n:29,t:"B",tm:"Porcentajes",
+   p:"¿Cuánto es el $40\\%$ de $200$?",
+   o:["$40$","$60$","$80$","$100$"],
+   a:2,
+   tip:"$\\dfrac{40}{100} \\times 200 = 80$. Truco: $40\\%$ de $200 = 40 \\times 2 = 80$."},
+
+  {n:30,t:"B",tm:"Porcentajes",
+   p:"¿Qué porcentaje de 50 es 15?",
+   o:["$15\\%$","$20\\%$","$25\\%$","$30\\%$"],
+   a:3,
+   tip:"Fórmula: $\\dfrac{\\text{parte}}{\\text{total}} \\times 100 = \\dfrac{15}{50} \\times 100 = 30\\%$."},
+
+  {n:31,t:"I",tm:"Porcentajes",
+   p:"El $20\\%$ del $30\\%$ de cierta cantidad es 60. Hallar la cantidad.",
+   o:["$500$","$1000$","$2000$","$3000$"],
+   a:1,
+   tip:"$0.20 \\times 0.30 \\times N = 60 \\Rightarrow 0.06 \\times N = 60 \\Rightarrow N = 1000$."},
+
+  {n:32,t:"B",tm:"Porcentajes",
+   p:"En un salón hay 40 alumnos. Si el $60\\%$ son mujeres, ¿cuántos varones hay?",
+   o:["$16$","$20$","$24$","$28$"],
+   a:0,
+   tip:"Varones $= 100\\% - 60\\% = 40\\%$. El $40\\%$ de $40 = \\dfrac{40}{100} \\times 40 = 16$."},
+
+  {n:33,t:"I",tm:"Porcentajes",
+   p:"Si el lado de un cuadrado aumenta en un $10\\%$, ¿en qué porcentaje aumentará su área?",
+   o:["$10\\%$","$20\\%$","$21\\%$","$100\\%$"],
+   a:2,
+   tip:"Lado inicial $= 10$, área $= 100$. Nuevo lado $= 11$, nueva área $= 121$. Aumento $= \\dfrac{121-100}{100} \\times 100 = 21\\%$."},
+
+  {n:34,t:"I",tm:"Porcentajes",
+   p:"A un artículo de S/ 100 se le hacen dos descuentos sucesivos del $20\\%$ y $10\\%$. ¿Cuál es el precio final?",
+   o:["S/ 70","S/ 72","S/ 80","S/ 90"],
+   a:1,
+   tip:"Primer descuento: $100 \\times 0.80 = 80$. Segundo descuento: $80 \\times 0.90 = 72$."},
+
+  {n:35,t:"I",tm:"Porcentajes",
+   p:"Se vende un televisor en S/ 1 200 ganando el $20\\%$ del costo. ¿Cuál fue el precio de costo?",
+   o:["S/ 800","S/ 900","S/ 1000","S/ 1100"],
+   a:2,
+   tip:"Venta $= 120\\%$ del Costo. Entonces $1200 = 1.20 \\times C \\Rightarrow C = \\dfrac{1200}{1.20} = 1000$."},
+
+  {n:36,t:"B",tm:"Porcentajes",
+   p:"¿Cuánto es el $30\\%$ más de $200$?",
+   o:["$230$","$240$","$260$","$300$"],
+   a:2,
+   tip:"Aumentar $30\\%$ equivale a calcular el $130\\%$: $\\dfrac{130}{100} \\times 200 = 260$."},
+
+  {n:37,t:"I",tm:"Porcentajes",
+   p:"En una rebaja del $30\\%$ pagué S/ 140 por una casaca. ¿Cuál era el precio original?",
+   o:["S/ 170","S/ 180","S/ 200","S/ 210"],
+   a:2,
+   tip:"Pagué el $70\\%$ del precio original $P$. Entonces $0.70 \\times P = 140 \\Rightarrow P = \\dfrac{140}{0.70} = 200$."},
+
+  {n:38,t:"T",tm:"Porcentajes",
+   p:"La expresión 'el 10 por 40' equivale en porcentaje a:",
+   o:["$10\\%$","$25\\%$","$40\\%$","$100\\%$"],
+   a:1,
+   tip:"'10 por 40' representa la relación $\\dfrac{10}{40} = \\dfrac{1}{4}$. En porcentaje: $\\dfrac{1}{4} \\times 100 = 25\\%$."},
+
+  {n:39,t:"B",tm:"Porcentajes",
+   p:"Si a 50 se le aumenta el $20\\%$, el resultado es:",
+   o:["$60$","$70$","$80$","$90$"],
+   a:0,
+   tip:"El $20\\%$ de $50 = 10$. Resultado: $50 + 10 = 60$. O directamente: $50 \\times 1.20 = 60$."},
+
+  {n:40,t:"I",tm:"Porcentajes",
+   p:"Si mi sueldo aumentó de S/ 400 a S/ 500, ¿en qué porcentaje aumentó?",
+   o:["$20\\%$","$25\\%$","$30\\%$","$100\\%$"],
+   a:1,
+   tip:"Variación $= 500 - 400 = 100$. Porcentaje $= \\dfrac{100}{400} \\times 100 = 25\\%$."}
 ];
 
 var tipoLbl={T:'Teoría',B:'Nivel Básico',I:'Nivel Intermedio',C:'Nivel Avanzado'};
@@ -454,24 +667,39 @@ function renderQ(){
   document.getElementById('rst').className='result-stamp';document.getElementById('rst').innerHTML='';
   var nxBtn=document.getElementById('btn-nx');nxBtn.className='btn-next';
   nxBtn.innerHTML=(idx<TOTAL-1?'Siguiente':'Ver Resultado')+' <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
-  var letters=['A','B','C','D'];var optHtml='';
+
+  var letters=['A','B','C','D'];
+  var optHtml='';
   for(var oi=0;oi<q.o.length;oi++){
-    var optText=q.o[oi];
-    optHtml+='<div class="opt" id="o'+oi+'" onclick="pick('+oi+')"><span class="opt-lt">'+letters[oi]+'</span><span class="opt-tx">'+optText+'</span></div>';
+    optHtml+='<div class="opt" id="o'+oi+'" onclick="pick('+oi+')"><span class="opt-lt">'+letters[oi]+'</span><span class="opt-tx">'+q.o[oi]+'</span></div>';
   }
+
   document.getElementById('qw').innerHTML=
-    '<div class="timer-row"><div class="timer-ring tr-ok" id="tr"><svg viewBox="0 0 52 52"><circle class="ring-bg" cx="26" cy="26" r="20"/><circle class="ring-bar" id="rb" cx="26" cy="26" r="20"/></svg><span class="ring-txt" id="rt">'+TSEC+'</span></div><div class="timer-meta"><span class="timer-strong">'+TSEC+' segundos</span><span class="timer-sub">'+tipoLbl[q.t]+' · '+q.tm+'</span></div></div>'+
-    '<div class="q-card '+q.t+' q-anim" id="qc"><div class="q-meta"><span class="q-badge">'+tipoLbl[q.t]+'</span><span class="q-tema">'+q.tm+'</span></div><div class="q-text" id="qtext"></div><div class="options" id="opts">'+optHtml+'</div><div class="to-badge" id="tob">⏱ Tiempo agotado — la respuesta correcta está marcada</div><div class="tip-box" id="tipb"><div class="tip-lbl" id="tipl"></div><span id="tipt"></span></div></div>';
-  document.getElementById('qtext').innerHTML=q.p;
-  renderMath(document.getElementById('qw'));window.scrollTo(0,0);startTmr();
+    '<div class="timer-row"><div class="timer-ring tr-ok" id="tr"><svg viewBox="0 0 52 52"><circle class="ring-bg" cx="26" cy="26" r="20"/><circle class="ring-bar" id="rb" cx="26" cy="26" r="20"/></svg><span class="ring-txt" id="rt">'+TSEC+'</span></div>'+
+    '<div class="timer-meta"><span class="timer-strong">'+TSEC+' segundos</span><span class="timer-sub">'+tipoLbl[q.t]+' · '+q.tm+'</span></div></div>'+
+    '<div class="q-card '+q.t+' q-anim" id="qc">'+
+      '<div class="q-meta"><span class="q-badge">'+tipoLbl[q.t]+'</span><span class="q-tema">'+q.tm+'</span></div>'+
+      '<div class="q-text" id="qtext">'+q.p+'</div>'+
+      '<div class="options" id="opts">'+optHtml+'</div>'+
+      '<div class="to-badge" id="tob">⏱ Tiempo agotado — la respuesta correcta está marcada</div>'+
+      '<div class="tip-box" id="tipb"><div class="tip-lbl" id="tipl"></div><span id="tipt"></span></div>'+
+    '</div>';
+
+  // Render math in the whole question widget (question text + options)
+  renderMath(document.getElementById('qw'));
+  window.scrollTo(0,0);
+  startTmr();
 }
 
 function startTmr(){
   clearInterval(tmr);var circ=125.6;
   tmr=setInterval(function(){
-    tLeft--;var rb=document.getElementById('rb'),rt=document.getElementById('rt'),tr=document.getElementById('tr');
+    tLeft--;
+    var rb=document.getElementById('rb'),rt=document.getElementById('rt'),tr=document.getElementById('tr');
     if(!rb){clearInterval(tmr);return;}
-    var p=tLeft/TSEC;rb.style.strokeDashoffset=circ*(1-p);rt.textContent=tLeft;
+    var p=tLeft/TSEC;
+    rb.style.strokeDashoffset=circ*(1-p);
+    rt.textContent=tLeft;
     tr.className='timer-ring '+(p>.5?'tr-ok':p>.25?'tr-mid':'tr-low');
     if(tLeft<=0){clearInterval(tmr);if(!done)timeout();}
   },1000);
@@ -481,25 +709,46 @@ function pick(i){
   if(done)return;done=true;clearInterval(tmr);
   var q=QS[idx],ok=i===q.a;
   ans.push({q:q.n,sel:i,ok:ok,to:false});
-  document.querySelectorAll('.opt').forEach(function(el,j){el.classList.add('dis');if(j===q.a)el.classList.add('c-ok');else if(j===i)el.classList.add('c-err');});
+  document.querySelectorAll('.opt').forEach(function(el,j){
+    el.classList.add('dis');
+    if(j===q.a)el.classList.add('c-ok');
+    else if(j===i)el.classList.add('c-err');
+  });
   document.getElementById('qc').classList.add(ok?'c-ok':'c-err');
   showTip(ok?'✓ Correcto':'✗ Incorrecto',q.tip);
-  var rs=document.getElementById('rst');rs.className='result-stamp '+(ok?'rs-ok':'rs-err');rs.innerHTML=ok?'✦ Correcto':'✦ Incorrecto';
+  var rs=document.getElementById('rst');
+  rs.className='result-stamp '+(ok?'rs-ok':'rs-err');
+  rs.innerHTML=ok?'✦ Correcto':'✦ Incorrecto';
   document.getElementById('btn-nx').classList.add('show');
 }
 
 function timeout(){
-  done=true;var q=QS[idx];ans.push({q:q.n,sel:-1,ok:false,to:true});
-  document.querySelectorAll('.opt').forEach(function(el,j){el.classList.add('dis');if(j===q.a)el.classList.add('c-ok');});
-  document.getElementById('tob').classList.add('show');showTip('⏱ Tiempo agotado',q.tip);
-  var rs=document.getElementById('rst');rs.className='result-stamp rs-to';rs.innerHTML='⏱ Tiempo agotado';
+  done=true;var q=QS[idx];
+  ans.push({q:q.n,sel:-1,ok:false,to:true});
+  document.querySelectorAll('.opt').forEach(function(el,j){
+    el.classList.add('dis');
+    if(j===q.a)el.classList.add('c-ok');
+  });
+  document.getElementById('tob').classList.add('show');
+  showTip('⏱ Tiempo agotado',q.tip);
+  var rs=document.getElementById('rst');
+  rs.className='result-stamp rs-to';rs.innerHTML='⏱ Tiempo agotado';
   document.getElementById('btn-nx').classList.add('show');
 }
 
+// KEY FIX: use innerHTML so KaTeX delimiters render inside the tip box
 function showTip(lbl,txt){
-  document.getElementById('tipl').textContent=lbl;document.getElementById('tipt').textContent=txt;
-  document.getElementById('tipb').classList.add('show');
-  setTimeout(function(){var el=document.getElementById('tipb');if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});},200);
+  var lbl_el=document.getElementById('tipl');
+  var txt_el=document.getElementById('tipt');
+  var box=document.getElementById('tipb');
+  lbl_el.textContent=lbl;
+  txt_el.innerHTML=txt;           // ← innerHTML enables KaTeX rendering
+  box.classList.add('show');
+  renderMath(box);                // ← re-render math inside tip box
+  setTimeout(function(){
+    var el=document.getElementById('tipb');
+    if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  },220);
 }
 
 function nxt(){
@@ -517,8 +766,10 @@ function showResults(){
   var pct=Math.round(ok*2.5);
   var temas={};
   QS.forEach(function(q){
-    if(!temas[q.tm])temas[q.tm]={tot:0,ok:0};temas[q.tm].tot++;
-    var a=ans.find(function(a){return a.q===q.n;});if(a&&a.ok)temas[q.tm].ok++;
+    if(!temas[q.tm])temas[q.tm]={tot:0,ok:0};
+    temas[q.tm].tot++;
+    var a=ans.find(function(a){return a.q===q.n;});
+    if(a&&a.ok)temas[q.tm].ok++;
   });
   var record={fecha:new Date().toLocaleString('es-PE'),nombre:stu.n,apellido:stu.a,area:stu.area,puntaje:pct,correctas:ok,incorrectas:err-to,sinTiempo:to,total:TOTAL};
   sendToSheets(record);showToast();
@@ -543,12 +794,16 @@ function showResults(){
   document.getElementById('r-err').textContent=err-to;
   document.getElementById('r-to').textContent=to;
 
-  var temasArr=Object.entries(temas).map(function(e){return{tm:e[0],ok:e[1].ok,tot:e[1].tot,pct:e[1].tot?Math.round((e[1].ok/e[1].tot)*100):0};});
+  var temasArr=Object.entries(temas).map(function(e){
+    return{tm:e[0],ok:e[1].ok,tot:e[1].tot,pct:e[1].tot?Math.round((e[1].ok/e[1].tot)*100):0};
+  });
   temasArr.sort(function(a,b){return b.pct-a.pct;});
   var best=temasArr[0],worst=temasArr[temasArr.length-1];
   var hlEl=document.getElementById('r-highlights');
   if(hlEl&&best&&worst){
-    hlEl.innerHTML='<div class="r-hl-box"><div class="r-hl-tag up">↑ PUNTO FUERTE</div><div class="r-hl-lbl">Mejor tema</div><div class="r-hl-tema">'+best.tm+'</div><div class="r-hl-score">'+best.ok+'/'+best.tot+' — '+best.pct+'%</div></div><div class="r-hl-box"><div class="r-hl-tag dn">↓ A MEJORAR</div><div class="r-hl-lbl">Tema difícil</div><div class="r-hl-tema">'+worst.tm+'</div><div class="r-hl-score">'+worst.ok+'/'+worst.tot+' — '+worst.pct+'%</div></div>';
+    hlEl.innerHTML=
+      '<div class="r-hl-box"><div class="r-hl-tag up">↑ PUNTO FUERTE</div><div class="r-hl-lbl">Mejor tema</div><div class="r-hl-tema">'+best.tm+'</div><div class="r-hl-score">'+best.ok+'/'+best.tot+' — '+best.pct+'%</div></div>'+
+      '<div class="r-hl-box"><div class="r-hl-tag dn">↓ A MEJORAR</div><div class="r-hl-lbl">Tema difícil</div><div class="r-hl-tema">'+worst.tm+'</div><div class="r-hl-score">'+worst.ok+'/'+worst.tot+' — '+worst.pct+'%</div></div>';
   }
 
   var bkHtml='';
@@ -556,17 +811,25 @@ function showResults(){
     var tm=entry[0],d=entry[1];
     var p=d.tot?Math.round((d.ok/d.tot)*100):0;
     var col=p>=85?'#8FBF9F':p>=70?'#C8A448':p>=50?'#9A7AB8':p>=30?'#7A9AAA':'#8A3A4A';
-    var frac=d.ok+' de '+d.tot; bkHtml+='<div class="bd-row"><span class="bd-lbl">'+tm+'</span><div class="bd-track"><div class="bd-bar" style="width:0%;background:'+col+'" data-w="'+p+'"></div></div><span class="bd-sc" style="color:'+col+'">'+frac+'</span></div>';
+    bkHtml+='<div class="bd-row"><span class="bd-lbl">'+tm+'</span><div class="bd-track"><div class="bd-bar" style="width:0%;background:'+col+'" data-w="'+p+'"></div></div><span class="bd-sc" style="color:'+col+'">'+d.ok+' de '+d.tot+'</span></div>';
   });
   document.getElementById('r-bk').innerHTML=bkHtml;
-  setTimeout(function(){document.querySelectorAll('.bd-bar').forEach(function(b){b.style.transition='width 1s cubic-bezier(.16,1,.3,1)';b.style.width=b.dataset.w+'%';});},300);
+  setTimeout(function(){
+    document.querySelectorAll('.bd-bar').forEach(function(b){
+      b.style.transition='width 1s cubic-bezier(.16,1,.3,1)';
+      b.style.width=b.dataset.w+'%';
+    });
+  },300);
 }
 
 function retry(){
   clearInterval(tmr);idx=0;ans=[];transitioning=false;stu={n:'',a:'',area:''};
-  sw('screen-register');document.getElementById('inp-n').value='';document.getElementById('inp-a').value='';
+  sw('screen-register');
+  document.getElementById('inp-n').value='';
+  document.getElementById('inp-a').value='';
   document.querySelectorAll('.area-card').forEach(function(c){c.classList.remove('selected');});
-  pickedArea='';document.getElementById('btn-start').classList.remove('ready');
+  pickedArea='';
+  document.getElementById('btn-start').classList.remove('ready');
 }
 
 function showToast(){var t=document.getElementById('toast');if(t){t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}}
@@ -583,4 +846,3 @@ function sendToSheets(record){
 </script>
 </body>
 </html>
-```
