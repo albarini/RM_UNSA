@@ -1,4 +1,12 @@
-¡Aquí tienes el código completo y actualizado, ya sin los iconos de las áreas!
+Viewed simulacro_rm.html:380-435
+Edited simulacro_rm.html
+Viewed simulacro_rm.html:1-583
+
+¡Claro! He revisado todas las preguntas, en especial las de la mitad del examen hacia adelante (que son del tema de Fracciones y Porcentajes). He modificado todas las fracciones que estaban como texto normal (ejemplo: `2/3`) para usar la sintaxis matemática avanzada de KaTeX (ejemplo: `$\frac{2}{3}$`). 
+
+Ahora todas las fracciones se renderizarán de forma correcta, profesional y alineada visualmente. 
+
+Aquí tienes el código completo y actualizado para que lo puedas copiar y pegar directamente:
 
 ```html
 <!DOCTYPE html>
@@ -65,6 +73,7 @@ html,body{width:100%;background:var(--obsidian);color:var(--cream);font-family:'
 .area-card.selected .ac-radio{border-color:var(--emerald4);box-shadow:0 0 8px rgba(16,160,112,.3);}
 .ac-radio-dot{width:2.2vw;height:2.2vw;border-radius:50%;background:var(--emerald4);transform:scale(0);transition:transform .2s;}
 .area-card.selected .ac-radio-dot{transform:scale(1);}
+.ac-icon{font-size:7vw;flex-shrink:0;line-height:1;}
 .ac-info{flex:1;}
 .ac-name{font-family:'Playfair Display',serif;font-size:5vw;font-weight:500;color:var(--cream);margin-bottom:1vw;}
 .ac-sub{font-size:3.2vw;color:var(--muted);line-height:1.3;font-style:italic;}
@@ -386,46 +395,46 @@ function renderMath(el){
 }
 
 var QS=[
-  {n:1,t:"T",tm:"Planteo de Ecuaciones",p:"¿Qué representa en lenguaje matemático la frase: 'un número excede a otro en 5'?",o:["$x + y = 5$","$x - y = 5$","$x = 5y$","$x/y = 5$"],a:1,tip:"'Exceder' significa que la diferencia entre el mayor y el menor es esa cantidad. Se plantea con una resta: x - y = 5."},
+  {n:1,t:"T",tm:"Planteo de Ecuaciones",p:"¿Qué representa en lenguaje matemático la frase: 'un número excede a otro en 5'?",o:["$x + y = 5$","$x - y = 5$","$x = 5y$","$\\frac{x}{y} = 5$"],a:1,tip:"'Exceder' significa que la diferencia entre el mayor y el menor es esa cantidad. Se plantea con una resta: x - y = 5."},
   {n:2,t:"B",tm:"Planteo de Ecuaciones",p:"El doble de un número, aumentado en 5 es igual a 17. ¿Cuál es el número?",o:["4","5","6","8"],a:2,tip:"Ecuación: 2x + 5 = 17 → 2x = 12 → x = 6."},
-  {n:3,t:"B",tm:"Planteo de Ecuaciones",p:"Si a la tercera parte de mi edad le sumo 10, obtengo 15. ¿Qué edad tengo?",o:["10","15","20","25"],a:1,tip:"Ecuación: x/3 + 10 = 15 → x/3 = 5 → x = 15."},
+  {n:3,t:"B",tm:"Planteo de Ecuaciones",p:"Si a la tercera parte de mi edad le sumo 10, obtengo 15. ¿Qué edad tengo?",o:["10","15","20","25"],a:1,tip:"Ecuación: $\\frac{x}{3} + 10 = 15 \\rightarrow \\frac{x}{3} = 5 \\rightarrow x = 15$."},
   {n:4,t:"I",tm:"Planteo de Ecuaciones",p:"La suma de tres números consecutivos es 45. ¿Cuál es el número mayor?",o:["13","14","15","16"],a:3,tip:"Números: x, (x+1), (x+2). Suma: 3x + 3 = 45 → 3x = 42 → x = 14. Mayor: 16."},
   {n:5,t:"B",tm:"Planteo de Ecuaciones",p:"Si el cuadrado de un número positivo disminuye en 4, se obtiene 32. ¿Cuál es el número?",o:["4","5","6","8"],a:2,tip:"Ecuación: x² - 4 = 32 → x² = 36. Como es positivo, x = 6."},
   {n:6,t:"I",tm:"Planteo de Ecuaciones",p:"Ana tiene el doble de dinero que Beto. Si Ana le da S/ 20 a Beto, ambos tendrían igual suma. ¿Cuánto tienen entre los dos?",o:["S/ 80","S/ 100","S/ 120","S/ 160"],a:2,tip:"Ana=2x, Beto=x. Ecuación: 2x - 20 = x + 20 → x = 40. Ana tiene 80 y Beto 40. Total = 120."},
   {n:7,t:"B",tm:"Planteo de Ecuaciones",p:"El cuádruple de la suma de un número con 3 es 28. Hallar el número.",o:["2","3","4","5"],a:2,tip:"Ecuación: 4(x + 3) = 28 → x + 3 = 7 → x = 4. Respeta el paréntesis por la palabra 'suma'."},
   {n:8,t:"I",tm:"Planteo de Ecuaciones",p:"Dos números suman 40 y su diferencia es 12. ¿Cuál es el número menor?",o:["10","12","14","16"],a:2,tip:"May=a, Men=b. a+b=40, a-b=12. Restando o sumando: 2a=52 → a=26. Entonces b=14 (menor)."},
-  {n:9,t:"B",tm:"Planteo de Ecuaciones",p:"La mitad del triple de un número equivale a 12. ¿Cuál es el número?",o:["6","8","10","12"],a:1,tip:"Ecuación: (3x)/2 = 12 → 3x = 24 → x = 8."},
+  {n:9,t:"B",tm:"Planteo de Ecuaciones",p:"La mitad del triple de un número equivale a 12. ¿Cuál es el número?",o:["6","8","10","12"],a:1,tip:"Ecuación: $\\frac{3x}{2} = 12 \\rightarrow 3x = 24 \\rightarrow x = 8$."},
   {n:10,t:"I",tm:"Planteo de Ecuaciones",p:"Las edades de un padre y su hijo suman 50. Si el padre tiene 30 años más que el hijo, ¿cuántos años tiene el hijo?",o:["5","10","15","20"],a:1,tip:"P + H = 50. Como P = H + 30, reemplazamos: (H+30) + H = 50 → 2H=20 → H = 10."},
   {n:11,t:"T",tm:"Planteo de Ecuaciones",p:"Traduce al lenguaje matemático: 'El cuadrado de la suma de dos números'",o:["$a^2 + b^2$","$a + b^2$","$(a+b)^2$","$2(a+b)$"],a:2,tip:"Por no haber una coma antes de 'de', el cuadrado engloba a todo: (a+b)²."},
-  {n:12,t:"B",tm:"Planteo de Ecuaciones",p:"¿Qué número sumado con su mitad resulta 30?",o:["10","15","20","25"],a:2,tip:"x + x/2 = 30 → 3x/2 = 30 → 3x=60 → x=20."},
+  {n:12,t:"B",tm:"Planteo de Ecuaciones",p:"¿Qué número sumado con su mitad resulta 30?",o:["10","15","20","25"],a:2,tip:"$x + \\frac{x}{2} = 30 \\rightarrow \\frac{3x}{2} = 30 \\rightarrow 3x=60 \\rightarrow x=20$."},
   {n:13,t:"I",tm:"Planteo de Ecuaciones",p:"Si compré 4 libros y me sobraron S/ 10, pero si compro 6 me faltarían S/ 20. ¿Cuánto dinero tenía?",o:["S/ 40","S/ 55","S/ 70","S/ 85"],a:2,tip:"Sea p el precio. Dinero = 4p + 10 = 6p - 20. Entonces 2p = 30 → p=15. Dinero = 4(15)+10 = 70."},
   {n:14,t:"I",tm:"Planteo de Ecuaciones",p:"El exceso de un número sobre 15 es igual al exceso de 45 sobre el dicho número. Hallar el número.",o:["20","25","30","35"],a:2,tip:"x - 15 = 45 - x → 2x = 60 → x = 30."},
-  {n:15,t:"T",tm:"Fracciones",p:"¿Qué caracteriza a una fracción propia?",o:["El numerador es mayor que el denominador","El numerador y denominador son iguales","El numerador es menor que el denominador","Es un número entero"],a:2,tip:"Fracción propia: Numerador < Denominador. Su valor siempre es menor a 1 (ejemplo: 3/5)."},
-  {n:16,t:"B",tm:"Fracciones",p:"¿Cuánto es los 2/3 de 60?",o:["20","30","40","50"],a:2,tip:"La palabra 'de' significa multiplicación. (2/3) × 60 = 120/3 = 40."},
-  {n:17,t:"B",tm:"Fracciones",p:"Simplifica la fracción 48/64",o:["2/3","3/4","4/5","5/6"],a:1,tip:"Dividiendo numerador y denominador entre el divisor mayor común (16): 48÷16 = 3, 64÷16 = 4. Queda 3/4."},
-  {n:18,t:"I",tm:"Fracciones",p:"Gasté los 3/5 de mi dinero. ¿Qué fracción de lo que tenía me queda?",o:["1/5","2/5","3/5","4/5"],a:1,tip:"El total completo es la unidad (5/5). Si gastas 3/5, te sobra la diferencia: 5/5 - 3/5 = 2/5."},
-  {n:19,t:"I",tm:"Fracciones",p:"Si los 3/4 de la edad de Luis son 24 años, ¿cuál es su edad?",o:["20 años","24 años","28 años","32 años"],a:3,tip:"(3/4)x = 24 → 3x = 96 → x = 32."},
-  {n:20,t:"I",tm:"Fracciones",p:"A un obrero le falta cavar los 2/7 de una zanja. Si ya avanzó 15 metros, ¿cuántos metros tiene la zanja?",o:["21 m","24 m","28 m","35 m"],a:0,tip:"Si le falta 2/7, ya excavó 5/7 del total. Entonces (5/7)×L = 15 → L = (15×7)/5 = 21 m."},
-  {n:21,t:"B",tm:"Fracciones",p:"¿Qué fracción de una hora representan 15 minutos?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"1 hora = 60 min. Fracción: Parte/Todo = 15/60 = 1/4."},
-  {n:22,t:"I",tm:"Fracciones",p:"Juan puede pintar un cuarto en 4 horas y Pedro en 6 horas. ¿Qué tiempo demorarían trabajando juntos? (Aprox)",o:["2 h","2.4 h","4 h","5 h"],a:1,tip:"Tasas: 1/4 + 1/6 = 5/12. Invertimos para el tiempo: 12/5 = 2.4 horas."},
-  {n:23,t:"B",tm:"Fracciones",p:"¿Qué parte de 80 es 20?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"Es/De = 20/80 = 1/4. Recuerda que la palabra 'de' siempre señala el denominador."},
-  {n:24,t:"I",tm:"Fracciones",p:"Un caño llena un tanque en 3 horas y otro en 6 horas. Juntos, ¿en qué tiempo lo llenarán?",o:["1 h","2 h","4 h","9 h"],a:1,tip:"El primer caño llena 1/3 por hora. El segundo 1/6 por hora. Juntos 1/3 + 1/6 = 3/6 = 1/2 por hora. Lo llenan en 2h."},
-  {n:25,t:"I",tm:"Fracciones",p:"Al simplificar una fracción se obtiene 2/3. Si la suma de sus términos originales es 25, ¿cuál fue la fracción original?",o:["6/9","8/12","10/15","12/18"],a:2,tip:"Sea la fracción 2k/3k. Su suma es: 2k + 3k = 25 → 5k=25 → k=5. Numerador 2(5)=10, Denominador 3(5)=15. Queda 10/15."},
-  {n:26,t:"I",tm:"Fracciones",p:"Un estudiante resolvió los 3/8 de su tarea y aún le faltan 25 problemas. ¿Cuántos problemas eran en total?",o:["30","35","40","45"],a:2,tip:"Falta resolver: 1 - 3/8 = 5/8 del total. Entonces (5/8)x = 25 → x = (25×8)/5 = 40."},
-  {n:27,t:"I",tm:"Fracciones",p:"Si gasto la mitad de mi dinero, y luego la mitad del resto, ¿qué fracción del total me queda?",o:["1/2","1/3","1/4","1/8"],a:2,tip:"Gastas 1/2 → queda 1/2. Gastas mitad del resto (1/2 de 1/2) → queda la otra mitad: 1/2 × 1/2 = 1/4."},
-  {n:28,t:"T",tm:"Porcentajes",p:"¿A qué fracción irreducible equivale el 25%?",o:["1/2","1/3","1/4","1/5"],a:2,tip:"El símbolo % equivale a dividir entre 100. 25% = 25/100, dividiendo entre 25 queda 1/4."},
-  {n:29,t:"B",tm:"Porcentajes",p:"¿Cuánto es el 40% de 200?",o:["40","60","80","100"],a:2,tip:"(40/100) × 200 = 80. Truco: anula dos ceros y multiplica 40 × 2 = 80."},
-  {n:30,t:"B",tm:"Porcentajes",p:"¿Qué porcentaje de 50 es 15?",o:["15%","20%","25%","30%"],a:3,tip:"Se hace la fracción Es/De y se multiplica por 100%. (15/50) × 100% = 15 × 2% = 30%."},
-  {n:31,t:"I",tm:"Porcentajes",p:"El 20% del 30% de cierta cantidad es 60. Hallar la cantidad.",o:["500","1000","2000","3000"],a:1,tip:"(20/100) × (30/100) × N = 60 → (6/100) × N = 60 → N = 6000 / 6 = 1000."},
+  {n:15,t:"T",tm:"Fracciones",p:"¿Qué caracteriza a una fracción propia?",o:["El numerador es mayor que el denominador","El numerador y denominador son iguales","El numerador es menor que el denominador","Es un número entero"],a:2,tip:"Fracción propia: Numerador < Denominador. Su valor siempre es menor a 1 (ejemplo: $\\frac{3}{5}$)." },
+  {n:16,t:"B",tm:"Fracciones",p:"¿Cuánto es los $\\frac{2}{3}$ de 60?",o:["20","30","40","50"],a:2,tip:"La palabra 'de' significa multiplicación. $\\frac{2}{3} \\times 60 = \\frac{120}{3} = 40$."},
+  {n:17,t:"B",tm:"Fracciones",p:"Simplifica la fracción $\\frac{48}{64}$",o:["$\\frac{2}{3}$","$\\frac{3}{4}$","$\\frac{4}{5}$","$\\frac{5}{6}$"],a:1,tip:"Dividiendo numerador y denominador entre el divisor mayor común (16): $48 \\div 16 = 3$, $64 \\div 16 = 4$. Queda $\\frac{3}{4}$."},
+  {n:18,t:"I",tm:"Fracciones",p:"Gasté los $\\frac{3}{5}$ de mi dinero. ¿Qué fracción de lo que tenía me queda?",o:["$\\frac{1}{5}$","$\\frac{2}{5}$","$\\frac{3}{5}$","$\\frac{4}{5}$"],a:1,tip:"El total completo es la unidad ($\\frac{5}{5}$). Si gastas $\\frac{3}{5}$, te sobra la diferencia: $\\frac{5}{5} - \\frac{3}{5} = \\frac{2}{5}$."},
+  {n:19,t:"I",tm:"Fracciones",p:"Si los $\\frac{3}{4}$ de la edad de Luis son 24 años, ¿cuál es su edad?",o:["20 años","24 años","28 años","32 años"],a:3,tip:"$\\frac{3}{4}x = 24 \\rightarrow 3x = 96 \\rightarrow x = 32$."},
+  {n:20,t:"I",tm:"Fracciones",p:"A un obrero le falta cavar los $\\frac{2}{7}$ de una zanja. Si ya avanzó 15 metros, ¿cuántos metros tiene la zanja?",o:["21 m","24 m","28 m","35 m"],a:0,tip:"Si le falta $\\frac{2}{7}$, ya excavó $\\frac{5}{7}$ del total. Entonces $\\frac{5}{7} \\times L = 15 \\rightarrow L = \\frac{15 \\times 7}{5} = 21$ m."},
+  {n:21,t:"B",tm:"Fracciones",p:"¿Qué fracción de una hora representan 15 minutos?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"1 hora = 60 min. Fracción: Parte/Todo = $\\frac{15}{60} = \\frac{1}{4}$."},
+  {n:22,t:"I",tm:"Fracciones",p:"Juan puede pintar un cuarto en 4 horas y Pedro en 6 horas. ¿Qué tiempo demorarían trabajando juntos? (Aprox)",o:["2 h","2.4 h","4 h","5 h"],a:1,tip:"Tasas: $\\frac{1}{4} + \\frac{1}{6} = \\frac{5}{12}$. Invertimos para el tiempo: $\\frac{12}{5} = 2.4$ horas."},
+  {n:23,t:"B",tm:"Fracciones",p:"¿Qué parte de 80 es 20?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"Es/De = $\\frac{20}{80} = \\frac{1}{4}$. Recuerda que la palabra 'de' siempre señala el denominador."},
+  {n:24,t:"I",tm:"Fracciones",p:"Un caño llena un tanque en 3 horas y otro en 6 horas. Juntos, ¿en qué tiempo lo llenarán?",o:["1 h","2 h","4 h","9 h"],a:1,tip:"El primer caño llena $\\frac{1}{3}$ por hora. El segundo $\\frac{1}{6}$ por hora. Juntos $\\frac{1}{3} + \\frac{1}{6} = \\frac{1}{2}$ por hora. Lo llenan en 2h."},
+  {n:25,t:"I",tm:"Fracciones",p:"Al simplificar una fracción se obtiene $\\frac{2}{3}$. Si la suma de sus términos originales es 25, ¿cuál fue la fracción original?",o:["$\\frac{6}{9}$","$\\frac{8}{12}$","$\\frac{10}{15}$","$\\frac{12}{18}$"],a:2,tip:"Sea la fracción $\\frac{2k}{3k}$. Su suma es: $2k + 3k = 25 \\rightarrow 5k=25 \\rightarrow k=5$. Numerador $2(5)=10$, Denominador $3(5)=15$. Queda $\\frac{10}{15}$."},
+  {n:26,t:"I",tm:"Fracciones",p:"Un estudiante resolvió los $\\frac{3}{8}$ de su tarea y aún le faltan 25 problemas. ¿Cuántos problemas eran en total?",o:["30","35","40","45"],a:2,tip:"Falta resolver: $1 - \\frac{3}{8} = \\frac{5}{8}$ del total. Entonces $\\frac{5}{8}x = 25 \\rightarrow x = \\frac{25 \\times 8}{5} = 40$."},
+  {n:27,t:"I",tm:"Fracciones",p:"Si gasto la mitad de mi dinero, y luego la mitad del resto, ¿qué fracción del total me queda?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{8}$"],a:2,tip:"Gastas $\\frac{1}{2} \\rightarrow$ queda $\\frac{1}{2}$. Gastas mitad del resto ($\\frac{1}{2}$ de $\\frac{1}{2}$) $\\rightarrow$ queda la otra mitad: $\\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$."},
+  {n:28,t:"T",tm:"Porcentajes",p:"¿A qué fracción irreducible equivale el 25%?",o:["$\\frac{1}{2}$","$\\frac{1}{3}$","$\\frac{1}{4}$","$\\frac{1}{5}$"],a:2,tip:"El símbolo % equivale a dividir entre 100. $25\\% = \\frac{25}{100}$, dividiendo entre 25 queda $\\frac{1}{4}$."},
+  {n:29,t:"B",tm:"Porcentajes",p:"¿Cuánto es el 40% de 200?",o:["40","60","80","100"],a:2,tip:"$\\frac{40}{100} \\times 200 = 80$. Truco: anula dos ceros y multiplica $40 \\times 2 = 80$."},
+  {n:30,t:"B",tm:"Porcentajes",p:"¿Qué porcentaje de 50 es 15?",o:["15%","20%","25%","30%"],a:3,tip:"Se hace la fracción Es/De y se multiplica por $100\\%$. ($\\frac{15}{50}$) $\\times 100\\% = 15 \\times 2\\% = 30\\%$."},
+  {n:31,t:"I",tm:"Porcentajes",p:"El 20% del 30% de cierta cantidad es 60. Hallar la cantidad.",o:["500","1000","2000","3000"],a:1,tip:"$\\frac{20}{100} \\times \\frac{30}{100} \\times N = 60 \\rightarrow \\frac{6}{100} \\times N = 60 \\rightarrow N = \\frac{6000}{6} = 1000$."},
   {n:32,t:"B",tm:"Porcentajes",p:"En un salón hay 40 alumnos. Si el 60% son mujeres, ¿cuántos varones hay?",o:["16","20","24","28"],a:0,tip:"Si el 60% son mujeres, el 100% - 60% = 40% son varones. 40% de 40 = 16."},
   {n:33,t:"I",tm:"Porcentajes",p:"Si el lado de un cuadrado aumenta un 10%, ¿en qué porcentaje aumenta su área?",o:["10%","20%","21%","100%"],a:2,tip:"Aumenta el lado a 110%. Nueva área = (110%)² = 1.21 = 121%. El área aumentó 21% (121% - 100%)."},
   {n:34,t:"I",tm:"Porcentajes",p:"A un artículo de S/ 100 se le hacen dos descuentos sucesivos del 20% y 10%. ¿Cuál es el precio final?",o:["S/ 70","S/ 72","S/ 80","S/ 90"],a:1,tip:"Descuento 1 (20%): de 100 baja a 80. Descuento 2 (10% de 80): descuenta 8. Queda 80 - 8 = S/ 72."},
   {n:35,t:"I",tm:"Porcentajes",p:"Se vende un televisor en S/ 1 200 ganando el 20% del costo. ¿Cuál fue el precio de costo?",o:["S/ 800","S/ 900","S/ 1000","S/ 1100"],a:2,tip:"Venta = Costo + Ganancia. 1200 = 100%C + 20%C = 120%C. Costo = 1200 / 1.2 = 1000."},
   {n:36,t:"B",tm:"Porcentajes",p:"¿Cuánto es 30% más de 200?",o:["230","240","260","300"],a:2,tip:"Un aumento del 30% significa calcular el 130%. 130% de 200 = 260. (O hallar 30% que es 60, y sumar 200+60)."},
-  {n:37,t:"I",tm:"Porcentajes",p:"En una rebaja del 30%, pagué S/ 140 por una casaca. ¿Cuál era el precio original?",o:["S/ 170","S/ 180","S/ 200","S/ 210"],a:2,tip:"Como hubo rebaja del 30%, solo pagué el 70%. (70/100) × Precio = 140 → Precio = 200."},
-  {n:38,t:"T",tm:"Porcentajes",p:"El '10 por 40' equivale en porcentaje a un:",o:["10%","25%","40%","100%"],a:1,tip:"'10 por cada 40' se escribe 10/40. Simplificando es 1/4. En porcentaje (1/4 × 100%) = 25%."},
-  {n:39,t:"B",tm:"Porcentajes",p:"Si a 50 se le aumenta el 20%, el resultado es:",o:["60","70","80","90"],a:0,tip:"20% de 50 = (20×50)/100 = 10. Valor aumentado: 50 + 10 = 60."},
-  {n:40,t:"I",tm:"Porcentajes",p:"Si mi sueldo aumenta de S/ 400 a S/ 500, ¿en qué porcentaje aumentó?",o:["20%","25%","30%","100%"],a:1,tip:"Variación es = 500 - 400 = 100. Fracción de aumento: Aumento / Original = 100/400 = 1/4 = 25%."}
+  {n:37,t:"I",tm:"Porcentajes",p:"En una rebaja del 30%, pagué S/ 140 por una casaca. ¿Cuál era el precio original?",o:["S/ 170","S/ 180","S/ 200","S/ 210"],a:2,tip:"Como hubo rebaja del $30\\%$, solo pagué el $70\\%$. ($\\frac{70}{100}$) $\\times \\text{Precio} = 140 \\rightarrow \\text{Precio} = 200$."},
+  {n:38,t:"T",tm:"Porcentajes",p:"El '10 por 40' equivale en porcentaje a un:",o:["10%","25%","40%","100%"],a:1,tip:"'10 por cada 40' se escribe $\\frac{10}{40}$. Simplificando es $\\frac{1}{4}$. En porcentaje ($\\frac{1}{4} \\times 100\\%$) = $25\\%$."},
+  {n:39,t:"B",tm:"Porcentajes",p:"Si a 50 se le aumenta el 20%, el resultado es:",o:["60","70","80","90"],a:0,tip:"20% de $50 = \\frac{20 \\times 50}{100} = 10$. Valor aumentado: 50 + 10 = 60."},
+  {n:40,t:"I",tm:"Porcentajes",p:"Si mi sueldo aumenta de S/ 400 a S/ 500, ¿en qué porcentaje aumentó?",o:["20%","25%","30%","100%"],a:1,tip:"Variación es = $500 - 400 = 100$. Fracción de aumento: Aumento / Original = $\\frac{100}{400} = \\frac{1}{4} = 25\\%$."}
 ];
 
 var tipoLbl={T:'Teoría',B:'Nivel Básico',I:'Nivel Intermedio',C:'Nivel Avanzado'};
